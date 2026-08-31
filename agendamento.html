@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Pet Banho e Tosa - Agendamento</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
+        <nav>
+            <ul>
+                <li><a href="index.html">Sair</a></li>
+                <li><a href="#">Meus Agendamentos</a></li>
+                <li><a href="#">Suporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section-agendamento">
+            <h2>Agendar Atendimento</h2>
+            
+            <form id="form-agendamento">
+                <!-- Passo 1: Informações do Pet -->
+                <fieldset class="grupo-form">
+                    <legend>1. Sobre o seu Pet</legend>
+                    
+                    <div class="campo">
+                        <label for="nome-pet">Nome do Pet</label>
+                        <input type="text" id="nome-pet" placeholder="Ex: Thor, Mel, Pipoca" required>
+                    </div>
+
+                    <div class="campo-grid">
+                        <div class="campo">
+                            <label for="tipo-pet">Espécie</label>
+                            <select id="tipo-pet" required>
+                                <option value="">Selecione...</option>
+                                <option value="Cão">Cão</option>
+                                <option value="Gato">Gato</option>
+                                <option value="Coelho">Coelho</option>
+                                <option value="Roedor">Roedor</option>
+                                <option value="Ave">Ave</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="porte-pet">Porte</label>
+                            <select id="porte-pet" required>
+                                <option value="">Selecione...</option>
+                                <option value="Pequeno">Pequeno/Mini (até 5kg)</option>
+                                <option value="Médio">Médio (5kg a 20kg)</option>
+                                <option value="Grande">Grande (acima de 20kg)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Campo oculto/auxiliar para combinar Porte + Espécie para o JS -->
+                    <input type="hidden" id="porte-especie" value="">
+
+                    <div class="campo">
+                        <label for="temperamento-pet">Temperamento</label>
+                        <select id="temperamento-pet" required>
+                            <option value="">Selecione...</option>
+                            <option value="manso">Manso / Calmo</option>
+                            <option value="agitado">Agitado / Brincalhão</option>
+                            <option value="bravo">Bravo / Arisco</option>
+                        </select>
+                    </div>
+                </fieldset>
+
+                <!-- Passo 2: Escolha de Serviços -->
+                <fieldset class="grupo-form">
+                    <legend>2. Serviços Desejados</legend>
+                    
+                    <div class="opcoes-servicos">
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="servico" value="60">
+                            <div class="info-servico">
+                                <strong>Banho e Tosa Completa</strong>
+                                <span>R$ 60,00</span>
+                            </div>
+                        </label>
+
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="servico" value="40">
+                            <div class="info-servico">
+                                <strong>Apenas Banho</strong>
+                                <span>R$ 40,00</span>
+                            </div>
+                        </label>
+
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="servico" value="25">
+                            <div class="info-servico">
+                                <strong>Tosa Higiênica</strong>
+                                <span>R$ 25,00</span>
+                            </div>
+                        </label>
+
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="servico" value="15">
+                            <div class="info-servico">
+                                <strong>Corte de Unhas & Limpeza de Ouvidos</strong>
+                                <span>R$ 15,00</span>
+                            </div>
+                        </label>
+
+                        <label class="checkbox-card">
+                            <input type="checkbox" name="servico" value="10">
+                            <div class="info-servico">
+                                <strong>Escovação de Dentes</strong>
+                                <span>R$ 10,00</span>
+                            </div>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Passo 3: Data e Horário -->
+                <fieldset class="grupo-form">
+                    <legend>3. Selecione o Dia e Horário (Semana Atual)</legend>
+
+                    <label class="label-sub">Dias disponíveis nesta semana:</label>
+                    <div class="grid-dias" id="container-dias">
+                        <!-- Gerado dinamicamente via JS -->
+                    </div>
+
+                    <div id="bloco-horarios" class="bloco-horarios esconde">
+                        <label class="label-sub">Horários disponíveis para o dia selecionado:</label>
+                        <div class="grid-horarios" id="grid-horarios">
+                            <button type="button" class="btn-horario">08:00</button>
+                            <button type="button" class="btn-horario">09:00</button>
+                            <button type="button" class="btn-horario">10:00</button>
+                            <button type="button" class="btn-horario">11:00</button>
+                            <button type="button" class="btn-horario">13:00</button>
+                            <button type="button" class="btn-horario">14:00</button>
+                            <button type="button" class="btn-horario">15:00</button>
+                            <button type="button" class="btn-horario">16:00</button>
+                            <button type="button" class="btn-horario">17:00</button>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <!-- Passo 4: Observações -->
+                <fieldset class="grupo-form">
+                    <legend>4. Observações e Recomendações</legend>
+                    <div class="campo">
+                        <label for="obs">Alergias, cuidados especiais ou preferências:</label>
+                        <textarea id="obs" rows="3" placeholder="Ex: Tem alergia a perfumes, arisco ao cortar unhas..."></textarea>
+                    </div>
+                </fieldset>
+
+                <!-- Resumo e Confirmação -->
+                <div class="resumo-card">
+                    <h3>Resumo da Reserva</h3>
+                    <p>Total Estimado: <strong id="valor-total">R$ 0,00</strong></p>
+                    <small class="aviso-wpp">📲 Enviaremos um lembrete no seu WhatsApp 24 horas antes para confirmação.</small>
+                </div>
+
+                <button type="submit" class="btn-confirmar">Confirmar Agendamento</button>
+
+                <div id="mensagem" class="mensagem"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos</a></li>
+        </ul>
+        <p><small>&copy; 2026 Th. Todos os direitos reservados.</small></p>
+    </footer>
+
+    <!-- SDK do Supabase vem PRIMEIRO -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Script da lógica da página vem DEPOIS -->
+    <script src="agendamento.js"></script>
+
+    <script>
+        // Atualiza o campo oculto 'porte-especie' quando o usuário altera os dropdowns
+        const tipoPet = document.getElementById('tipo-pet');
+        const portePet = document.getElementById('porte-pet');
+        const porteEspecie = document.getElementById('porte-especie');
+
+        function atualizarPorteEspecie() {
+            porteEspecie.value = `${tipoPet.value} - ${portePet.value}`;
+        }
+
+        tipoPet.addEventListener('change', atualizarPorteEspecie);
+        portePet.addEventListener('change', atualizarPorteEspecie);
+    </script>
+</body>
+
+</html>

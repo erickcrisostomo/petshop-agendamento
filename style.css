@@ -1,0 +1,578 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: hsl(0, 0%, 90%);
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 50px;
+  background-color: #a81076;
+}
+
+img {
+  width: 180px;
+  height: auto;
+  border-radius: 12px;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+section {
+  width: 100%;
+  max-width: 380px;
+  background-color: #a81076;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  color: #ffffff;
+}
+
+h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+label {
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Campos de texto com alto contraste e boa leitura */
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #1b1a1a;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 0.95rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+input:focus {
+  border-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.4);
+}
+
+.opcoes-login {
+  text-align: right;
+  margin-top: -5px;
+}
+
+.link-secundario {
+  font-size: 0.8rem;
+  color: #fce7f3;
+  text-decoration: underline;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #1b1a1a;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background-color 0.3s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #333333;
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+.link-cadastro {
+  text-align: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.link-cadastro a {
+  color: #ffffff;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+nav a, footer a {
+  color: #fffaff;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.3s;
+}
+
+nav a:hover, footer a:hover {
+  opacity: 0.8;
+}
+
+.mensagem {
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  text-align: center;
+  font-weight: 600;
+  display: none;
+}
+
+.mensagem.sucesso {
+  display: block;
+  background-color: #d1fae5;
+  color: #065f46;
+  border: 1px solid #10b981;
+}
+
+.mensagem.erro {
+  display: block;
+  background-color: #fee2e2;
+  color: #991b1b;
+  border: 1px solid #ef4444;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+  background-color: #a81076;
+}
+
+footer ul {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  list-style: none;
+  padding: 0;
+  margin-bottom: 10px;
+}
+
+footer p {
+  margin: 0;
+  color: #eeeef0;
+  font-size: 0.85rem;
+}
+
+/* Estilos específicos para a Tela de Agendamento */
+.section-agendamento {
+  max-width: 600px;
+}
+
+.grupo-form {
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+legend {
+  font-weight: bold;
+  padding: 0 8px;
+  color: #fff;
+}
+
+.label-sub {
+  font-size: 0.9rem;
+  font-weight: 600;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.campo-grid {
+  display: flex;
+  gap: 15px;
+}
+
+.campo-grid .campo {
+  flex: 1;
+}
+
+select, textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #ffffff;
+  color: #1b1a1a;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.opcoes-servicos {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.checkbox-card {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  gap: 12px;
+}
+
+.checkbox-card input {
+  width: auto;
+}
+
+.info-servico {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 0.9rem;
+}
+
+/* Grid de Dias */
+.grid-dias {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.btn-dia {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 10px 5px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-dia span.semana {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+}
+
+.btn-dia span.data {
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.btn-dia.selecionado {
+  background-color: #ffffff;
+  color: #a81076;
+  border-color: #ffffff;
+}
+
+.btn-dia:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.bloco-horarios.esconde {
+  display: none;
+}
+
+.grid-horarios {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.btn-horario {
+  background-color: #ffffff;
+  color: #a81076;
+  border: 2px solid #ffffff;
+  padding: 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0;
+}
+
+.btn-horario.selecionado {
+  background-color: #1b1a1a;
+  color: #ffffff;
+  border-color: #1b1a1a;
+}
+
+.resumo-card {
+  background: rgba(0, 0, 0, 0.2);
+  padding: 15px;
+  border-radius: 8px;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.resumo-card h3 {
+  margin: 0 0 5px 0;
+}
+
+.aviso-wpp {
+  display: block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #fce7f3;
+}
+
+.btn-confirmar {
+  background-color: #1b1a1a;
+  font-size: 1.1rem;
+}
+
+/* Layout Global do Admin */
+.main-admin {
+  max-width: 1200px;
+  width: 95%;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 25px;
+  align-items: start;
+}
+
+/* Coluna 1: Métricas / Faturamento */
+.coluna-dashboards {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.coluna-dashboards h2 {
+  color: rgb(0, 0, 0);
+  margin-top: 0;
+  margin-bottom: 5px;
+  font-size: 1.3rem;
+}
+
+.card-metrica {
+  background-color: #a81076;
+  color: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+}
+
+.titulo-metrica {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.card-metrica h3 {
+  margin: 8px 0 4px 0;
+  font-size: 1.8rem;
+}
+
+.card-metrica small {
+  opacity: 0.8;
+  font-size: 0.75rem;
+}
+
+/* Coluna 2: Agenda */
+.section-admin-agenda {
+  background-color: #a81076;
+  color: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.section-admin-agenda h2 {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
+
+.label-sub {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 15px;
+  opacity: 0.9;
+}
+
+/* Grid de Dias da Semana (6 botões alinhados) */
+.grid-dias-admin {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.btn-dia-admin {
+  background-color: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 10px 4px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  margin-top: 0;
+  width: 100%;
+}
+
+.btn-dia-admin span.semana {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.btn-dia-admin span.data {
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.btn-dia-admin.selecionado {
+  background-color: #ffffff;
+  color: #a81076;
+}
+
+/* ==========================================
+   ESTRUTURA LARGA DO CARD ADMIN
+   ========================================== */
+
+.container-cards-agenda {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.card-agendamento {
+  width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 18px;
+  background-color: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 12px;
+  position: relative;
+  overflow: hidden; /* Evita que qualquer conteúdo vaze as bordas */
+}
+
+.card-linha-topo {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.header-pet {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.nome-pet {
+  font-size: 1.2rem;
+  color: #ffffff;
+}
+
+.porte-badge {
+  font-size: 0.85rem;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  padding: 3px 10px;
+  border-radius: 15px;
+}
+
+.card-corpo {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 15px;
+  box-sizing: border-box;
+}
+
+.bloco-servicos {
+  flex: 1;
+  min-width: 0; /* Impede que textos longos forcem o aumento do container */
+}
+
+.titulo-servicos {
+  font-size: 0.75rem;
+  letter-spacing: 0.8px;
+  color: rgba(255, 255, 255, 0.7);
+  display: block;
+  margin-bottom: 6px;
+}
+
+.lista-servicos {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.lista-servicos li {
+  font-size: 0.9rem;
+  color: #ffffff;
+  margin-bottom: 4px;
+  word-break: break-word; /* Permite quebra caso a linha seja maior que o espaço */
+}
+
+.valor-destaque {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  flex-shrink: 0; /* Impede o bloco do total de ser espremido */
+}
+
+.valor-destaque span {
+  font-size: 0.8rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.valor-destaque strong {
+  font-size: 1.25rem;
+  color: #81e6d9;
+}

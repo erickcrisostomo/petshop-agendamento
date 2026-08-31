@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Pet Banho e Tosa - Login</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
+        <nav>
+            <ul>
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Sobre</a></li>
+                <li><a href="#">Suporte</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <h2>Login</h2>
+            <form id="form-login">
+                <div class="campo">
+                    <label for="campo-email">E-mail</label>
+                    <input type="email" id="campo-email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="campo">
+                    <label for="campo-senha">Senha</label>
+                    <input type="password" id="campo-senha" placeholder="Digite sua senha" required>
+                </div>
+
+                <div class="opcoes-login">
+                    <a href="#" class="link-secundario">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit">Entrar</button>
+                
+                <div id="mensagem" class="mensagem"></div>
+
+                <div class="link-cadastro">
+                    <p>Não tem uma conta? <a href="#">Cadastre-se</a></p>
+                </div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos</a></li>
+        </ul>
+        <p><small>&copy; 2026 Th. Todos os direitos reservados.</small></p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

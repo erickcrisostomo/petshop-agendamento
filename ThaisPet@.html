@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Pet Banho e Tosa - Painel Admin</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
+        <nav>
+            <ul>
+                <li><a href="agendamento.html">Tela do Cliente</a></li>
+                <li><a href="index.html">Sair</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="main-admin">
+        <!-- Coluna 1: Métricas e Faturamento -->
+        <aside class="coluna-dashboards">
+    <h2>Resumo Financeiro</h2>
+    
+    <div class="card-metrica">
+        <span class="titulo-metrica">Faturamento Semanal</span>
+        <h3 id="fat-semanal">R$ 0,00</h3>
+        <small>Segunda a Sábado</small>
+    </div>
+
+    <div class="card-metrica">
+        <span class="titulo-metrica">Faturamento Mensal</span>
+        <h3 id="fat-mensal">R$ 0,00</h3>
+        <small>Últimos 30 dias</small>
+    </div>
+
+    <div class="card-metrica">
+        <span class="titulo-metrica">Total de Agendamentos</span>
+        <h3 id="total-pets">0 Pets</h3>
+        <small>Nesta semana</small>
+    </div>
+</aside>
+
+        <!-- Coluna 2: Agenda do Pet Shop -->
+        <section class="section-admin-agenda">
+            <h2>Agenda do Pet Shop</h2>
+
+            <label class="label-sub">Selecione o dia para visualizar os horários:</label>
+            <div class="grid-dias-admin" id="container-dias-admin">
+                <!-- Dias gerados via admin.js -->
+            </div>
+
+            <div class="container-cards-agenda" id="lista-horarios-admin">
+                <!-- Cards renderizados dinamicamente pelo admin.js a partir do Supabase -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <ul>
+            <li><a href="#">Privacidade</a></li>
+            <li><a href="#">Termos</a></li>
+        </ul>
+        <p><small>&copy; 2026 Th. Todos os direitos reservados.</small></p>
+    </footer>
+
+    <!-- SDK do Supabase deve ser carregado PRIMEIRO -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Lógica da página Admin carregada DEPOIS -->
+    <script src="admin.js"></script>
+</body>
+
+</html>
