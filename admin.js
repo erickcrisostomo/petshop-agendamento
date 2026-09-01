@@ -185,6 +185,7 @@ async function atualizarResumoFinanceiro() {
 
   const hoje = new Date();
 
+  // Define segunda-feira e sábado da semana atual
   const diaSemana = hoje.getDay();
   const segunda = new Date(hoje);
   segunda.setDate(hoje.getDate() - (diaSemana === 0 ? 6 : diaSemana - 1));
@@ -202,11 +203,14 @@ async function atualizarResumoFinanceiro() {
   const inicioSemanaISO = formatarData(segunda);
   const fimSemanaISO = formatarData(sabado);
 
-  const trintaDiasAtras = new Date(hoje);
-  trintaDiasAtras.setDate(hoje.getDate() - 30);
-  const inicio30DiasISO = formatarData(trintaDiasAtras);
-  const hojeISO = formatarData(hoje);
+  // Mês Atual: do dia 1 do mês atual até o último dia do mês atual
+  const primeiroDiaMes = new Date(hoje.getFullYear(), hoje.getMonth(), 1);
+  const ultimoDiaMes = new Date(hoje.getFullYear(), hoje.getMonth() + 1, 0);
 
+  const inicioMesISO = formatarData(primeiroDiaMes);
+  const fimMesISO = formatarData(ultimoDiaMes);
+
+  // Consulta Semanal
   const { data: dadosSemana } = await _supabase
     .from('agendamentos')
     .select('valor')
@@ -214,21 +218,31 @@ async function atualizarResumoFinanceiro() {
     .gte('data_agendamento', inicioSemanaISO)
     .lte('data_agendamento', fimSemanaISO);
 
+  // Consulta Mensal (pega do dia 1 ao último dia do mês atual, incluindo futuros do mesmo mês)
   const { data: dadosMes } = await _supabase
     .from('agendamentos')
     .select('valor')
     .eq('status', 'confirmado')
-    .gte('data_agendamento', inicio30DiasISO)
-    .lte('data_agendamento', hojeISO);
+    .gte('data_agendamento', inicioMesISO)
+    .lte('data_agendamento', fimMesISO);
+
+  // Função auxiliar para tratar string ou número
+  const converterParaNumero = (val) => {
+    if (typeof val === 'number') return val;
+    if (!val) return 0;
+    // Limpa caracteres de moeda e substitui vírgula por ponto
+    const limpo = String(val).replace('R$', '').replace(/\s/g, '').replace(',', '.');
+    return parseFloat(limpo) || 0;
+  };
 
   const totalSemana = dadosSemana
-    ? dadosSemana.reduce((acc, item) => acc + (parseFloat(item.valor) || 0), 0)
+    ? dadosSemana.reduce((acc, item) => acc + converterParaNumero(item.valor), 0)
     : 0;
 
   const totalPetsSemana = dadosSemana ? dadosSemana.length : 0;
 
   const totalMes = dadosMes
-    ? dadosMes.reduce((acc, item) => acc + (parseFloat(item.valor) || 0), 0)
+    ? dadosMes.reduce((acc, item) => acc + converterParaNumero(item.valor), 0)
     : 0;
 
   if (elFatSemanal) {
