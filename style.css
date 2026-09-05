@@ -576,3 +576,115 @@ select, textarea {
   font-size: 1.25rem;
   color: #81e6d9;
 }
+
+/* ==========================================
+   ESTILIZAÇÃO DO MENU E PÁGINAS AUXILIARES
+   ========================================== */
+
+/* Header e Navegação */
+.header {
+  background-color: #a0006d; /* Cor rosa/roxa principal do TH Pet */
+  padding: 15px 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.header .logo {
+  color: #ffffff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.header nav {
+  display: flex;
+  gap: 20px; /* Espaçamento entre os links do menu */
+  align-items: center;
+}
+
+.header nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
+.header nav a:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+}
+
+/* Estrutura do Conteúdo Principal */
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+  color: #333333;
+}
+
+.container h2 {
+  color: #a0006d;
+  font-size: 1.8rem;
+  margin-bottom: 8px;
+}
+
+.container > p {
+  color: #666666;
+  margin-bottom: 25px;
+  font-size: 1rem;
+}
+
+/* Cards de Informações (Sobre e Suporte) */
+.info-box, .card-suporte {
+  background-color: #f9f9f9;
+  border: 1px solid #eeeeee;
+  border-radius: 8px;
+  padding: 20px;
+  margin-top: 15px;
+}
+
+.info-box h3, .card-suporte h3 {
+  color: #a0006d;
+  font-size: 1.2rem;
+  margin-top: 15px;
+  margin-bottom: 8px;
+}
+
+.info-box h3:first-child, .card-suporte h3:first-child {
+  margin-top: 0;
+}
+
+.info-box ul {
+  padding-left: 20px;
+  margin-top: 8px;
+}
+
+.info-box li {
+  margin-bottom: 6px;
+  color: #444444;
+}
+
+/* Botão do WhatsApp no Suporte */
+.btn-whatsapp {
+  display: inline-block;
+  margin-top: 15px;
+  background-color: #25d366;
+  color: #ffffff;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background-color 0.2s ease;
+}
+
+.btn-whatsapp:hover {
+  background-color: #1eb855;
+}
