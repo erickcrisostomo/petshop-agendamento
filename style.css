@@ -618,53 +618,51 @@ select, textarea {
   text-decoration: none;
 }
 
-/* Estrutura do Conteúdo Principal */
+/* Container Centralizado para Sobre e Suporte */
 .container {
-  max-width: 800px;
+  max-width: 600px;
   margin: 40px auto;
-  padding: 20px;
+  padding: 30px;
   background-color: #ffffff;
   border-radius: 12px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   font-family: Arial, sans-serif;
   color: #333333;
+  
+  /* Garante o empilhamento vertical e alinhamento no centro */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
 .container h2 {
   color: #a0006d;
   font-size: 1.8rem;
   margin-bottom: 8px;
+  width: 100%;
 }
 
 .container > p {
   color: #666666;
-  margin-bottom: 25px;
+  margin-bottom: 20px;
   font-size: 1rem;
+  width: 100%;
 }
 
-/* Cards de Informações (Sobre e Suporte) */
+/* Garante que o card ocupe a largura correta dentro do container */
 .info-box, .card-suporte {
+  width: 100%;
   background-color: #f9f9f9;
   border: 1px solid #eeeeee;
   border-radius: 8px;
   padding: 20px;
-  margin-top: 15px;
-}
-
-.info-box h3, .card-suporte h3 {
-  color: #a0006d;
-  font-size: 1.2rem;
-  margin-top: 15px;
-  margin-bottom: 8px;
-}
-
-.info-box h3:first-child, .card-suporte h3:first-child {
-  margin-top: 0;
+  box-sizing: border-box;
+  text-align: left; /* Mantém os itens do card alinhados à esquerda para boa leitura */
 }
 
 .info-box ul {
   padding-left: 20px;
-  margin-top: 8px;
 }
 
 .info-box li {
