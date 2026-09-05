@@ -517,6 +517,16 @@ select, textarea {
   align-items: center;
 }
 
+.header nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, opacity 0.2s ease;
+}
+
 .nome-pet {
   font-size: 1.2rem;
   color: #ffffff;
