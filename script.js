@@ -48,7 +48,7 @@ if (formLogin) {
 
     if (error) {
       caixaMensagem.className = 'mensagem erro';
-      
+
       // Tratamento específico para cada mensagem de erro do Supabase
       const msgErro = error.message.toLowerCase();
 
@@ -65,8 +65,15 @@ if (formLogin) {
       caixaMensagem.className = 'mensagem sucesso';
       caixaMensagem.textContent = 'Login efetuado com sucesso! Redirecionando...';
 
+      // Redirecionamento dinâmico baseado no e-mail
       setTimeout(() => {
-        window.location.href = 'ThaisPet@.html';
+        if (email.toLowerCase() === 'pretin@thpet.com.br') {
+          // E-mail do Administrador
+          window.location.href = 'ThaisPet@.html';
+        } else {
+          // E-mail de Cliente
+          window.location.href = 'agendamento.html';
+        }
       }, 1500);
     }
   });
