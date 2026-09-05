@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Recuperar Senha - TH Pet</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <main class="login-container">
+    <h2>Recuperar Senha</h2>
+    <p>Digite seu e-mail para receber as instruções de redefinição.</p>
+
+    <form id="form-recuperar">
+      <div class="campo">
+        <label for="email-recuperar">E-mail</label>
+        <input type="email" id="email-recuperar" placeholder="seu@email.com" required>
+      </div>
+
+      <button type="submit" class="btn">Enviar E-mail</button>
+    </form>
+
+    <div id="mensagem" class="mensagem"></div>
+    <a href="index.html" class="link-voltar">Voltar para o Login</a>
+  </main>
+
+  <script>
+    const SUPABASE_URL = 'https://cjfofohvanlraxkjbftc.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_DldDRI623dY73et-9oWc6Q_zlbwwXMb';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form = document.getElementById('form-recuperar');
+    const msg = document.getElementById('mensagem');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email-recuperar').value.trim();
+
+      msg.className = 'mensagem';
+      msg.textContent = 'Enviando...';
+
+      const { error } = await _supabase.auth.resetPasswordForEmail(email, {
+        redirectTo: window.location.origin + '/redefinir-senha.html',
+      });
+
+      if (error) {
+        msg.className = 'mensagem erro';
+        msg.textContent = 'Erro ao enviar e-mail. Verifique o endereço digitado.';
+      } else {
+        msg.className = 'mensagem sucesso';
+        msg.textContent = 'E-mail de recuperação enviado! Verifique sua caixa de entrada.';
+      }
+    });
+  </script>
+</body>
+</html>
