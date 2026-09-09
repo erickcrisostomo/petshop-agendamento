@@ -59,7 +59,7 @@ if (formCadastro) {
       caixaMensagem.textContent = 'Cadastro realizado com sucesso! Redirecionando...';
 
       setTimeout(() => {
-        window.location.href = 'agendamento.html';
+        window.location.href = 'index.html';
       }, 1500);
     }
   });
