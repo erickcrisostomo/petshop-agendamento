@@ -9,7 +9,31 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 // ==========================================
 // LÓGICA DA TELA DE AGENDAMENTO
 // ==========================================
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+  // Evita o acesso direto à página sem uma sessão autenticada.
+  const { data: { session }, error: erroSessao } = await _supabase.auth.getSession();
+  if (erroSessao || !session) {
+    window.location.href = 'index.html';
+    return;
+  }
+    // Listener para o botão de Sair encerrar a sessão no Supabase
+    const btnSair = document.getElementById('btn-sair');
+    if (btnSair) {
+      btnSair.addEventListener('click', async function (e) {
+        e.preventDefault(); // Impede o redirecionamento imediato
+
+        // Encerra a sessão no Supabase
+        const { error } = await _supabase.auth.signOut();
+
+        if (error) {
+          console.error('Erro ao encerrar sessão:', error.message);
+        }
+
+        // Redireciona para a tela inicial/login após o logout
+        window.location.href = 'index.html';
+      });
+    }
+
   const form = document.getElementById('form-agendamento');
   const checkboxes = document.querySelectorAll('input[name="servico"]');
   const valorTotalEl = document.getElementById('valor-total');
@@ -34,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function () {
   function gerarDiasSemanaAtual() {
     const hoje = new Date();
     const diaAtual = hoje.getDay();
-    
+
     const segundaFeira = new Date(hoje);
     if (diaAtual === 0) {
       segundaFeira.setDate(hoje.getDate() + 1);
@@ -56,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const ePassado = dataParaComparar < hojeParaComparar;
         const dataFormatada = dataDia.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
-        
+
         // Uso da nova função que ignora o erro de UTC do toISOString()
         const dataISO = formatarDataLocal(dataDia);
 

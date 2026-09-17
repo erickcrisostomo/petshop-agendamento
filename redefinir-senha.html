@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Pet Banho e Tosa - Painel Admin</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png?v=3">
+</head>
+
+<body>
+  <header>
+    <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
+  </header>
+
+  <main>
+    <section>
+      <h2>Nova senha</h2>
+      <p class="texto-auxiliar">Escolha uma nova senha para acessar sua conta.</p>
+
+      <form id="form-redefinir" novalidate>
+        <div class="campo">
+          <label for="nova-senha">Nova senha</label>
+          <input type="password" id="nova-senha" autocomplete="new-password" minlength="6" required>
+        </div>
+
+        <div class="campo">
+          <label for="confirmar-nova-senha">Confirmar nova senha</label>
+          <input type="password" id="confirmar-nova-senha" autocomplete="new-password" minlength="6" required>
+        </div>
+
+        <button type="submit">Salvar nova senha</button>
+        <div id="mensagem" class="mensagem" role="status" aria-live="polite"></div>
+        <div class="link-cadastro"><a href="index.html">Voltar para o Login</a></div>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p><small>&copy; 2026 Th. Todos os direitos reservados.</small></p>
+  </footer>
+
+  <script>
+    const SUPABASE_URL = 'https://cjfofohvanlraxkjbftc.supabase.co';
+    const SUPABASE_ANON_KEY = 'sb_publishable_DldDRI623dY73et-9oWc6Q_zlbwwXMb';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const form = document.getElementById('form-redefinir');
+    const mensagem = document.getElementById('mensagem');
+    const botao = form.querySelector('button[type="submit"]');
+
+    function exibirMensagem(tipo, texto) {
+      mensagem.className = `mensagem ${tipo}`;
+      mensagem.textContent = texto;
+    }
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const senha = document.getElementById('nova-senha').value;
+      const confirmarSenha = document.getElementById('confirmar-nova-senha').value;
+
+      if (senha.length < 6) {
+        exibirMensagem('erro', 'A senha deve ter pelo menos 6 caracteres.');
+        return;
+      }
+
+      if (senha !== confirmarSenha) {
+        exibirMensagem('erro', 'As senhas não coincidem.');
+        return;
+      }
+
+      botao.disabled = true;
+      exibirMensagem('carregando', 'Salvando nova senha...');
+
+      try {
+        const { error } = await _supabase.auth.updateUser({ password: senha });
+        if (error) throw error;
+
+        exibirMensagem('sucesso', 'Senha atualizada com sucesso! Redirecionando para o login...');
+        setTimeout(() => { window.location.href = 'index.html'; }, 1800);
+      } catch (error) {
+        console.error('Erro ao redefinir senha:', error);
+        exibirMensagem('erro', 'O link é inválido ou expirou. Solicite uma nova recuperação de senha.');
+        botao.disabled = false;
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -653,3 +653,17 @@ select, textarea {
 .btn-whatsapp:hover {
   background-color: #1eb855;
 }
+
+.mensagem.carregando {
+  display: block;
+  background-color: #fce7f3;
+  color: #86105f;
+  border: 1px solid #f3a6d5;
+}
+
+.texto-auxiliar {
+  font-size: 0.85rem;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #fce7f3;
+}

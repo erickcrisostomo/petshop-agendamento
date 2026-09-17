@@ -21,8 +21,9 @@ if (formCadastro) {
     const nome = campoNome.value.trim();
     const telefone = campoTelefone.value.trim();
     const email = campoEmail.value.trim();
-    const senha = campoSenha.value.trim();
-    const confirmarSenha = campoConfirmarSenha.value.trim();
+    // Espaços podem fazer parte de uma senha válida.
+    const senha = campoSenha.value;
+    const confirmarSenha = campoConfirmarSenha.value;
 
     if (nome === '' || telefone === '' || email === '' || senha === '' || confirmarSenha === '') {
       caixaMensagem.className = 'mensagem erro';

@@ -2,10 +2,13 @@
 <html lang="pt-br">
 
 <head>
+    <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TH Pet Banho e Tosa - Painel Admin</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png?v=3">
+</head>
 </head>
 
 <body>
@@ -22,26 +25,26 @@
     <main class="main-admin">
         <!-- Coluna 1: Métricas e Faturamento -->
         <aside class="coluna-dashboards">
-    <h2>Resumo Financeiro</h2>
-    
-    <div class="card-metrica">
-        <span class="titulo-metrica">Faturamento Semanal</span>
-        <h3 id="fat-semanal">R$ 0,00</h3>
-        <small>Segunda a Sábado</small>
-    </div>
+            <h2>Resumo Financeiro</h2>
 
-    <div class="card-metrica">
-        <span class="titulo-metrica">Faturamento Mensal</span>
-        <h3 id="fat-mensal">R$ 0,00</h3>
-        <small>Últimos 30 dias</small>
-    </div>
+            <div class="card-metrica">
+                <span class="titulo-metrica">Faturamento Semanal</span>
+                <h3 id="fat-semanal">R$ 0,00</h3>
+                <small>Segunda a Sábado</small>
+            </div>
 
-    <div class="card-metrica">
-        <span class="titulo-metrica">Total de Agendamentos</span>
-        <h3 id="total-pets">0 Pets</h3>
-        <small>Nesta semana</small>
-    </div>
-</aside>
+            <div class="card-metrica">
+                <span class="titulo-metrica">Faturamento Mensal</span>
+                <h3 id="fat-mensal">R$ 0,00</h3>
+                <small>Últimos 30 dias</small>
+            </div>
+
+            <div class="card-metrica">
+                <span class="titulo-metrica">Total de Agendamentos</span>
+                <h3 id="total-pets">0 Pets</h3>
+                <small>Nesta semana</small>
+            </div>
+        </aside>
 
         <!-- Coluna 2: Agenda do Pet Shop -->
         <section class="section-admin-agenda">
@@ -68,7 +71,7 @@
 
     <!-- SDK do Supabase deve ser carregado PRIMEIRO -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
+
     <!-- Lógica da página Admin carregada DEPOIS -->
     <script src="admin.js"></script>
 </body>

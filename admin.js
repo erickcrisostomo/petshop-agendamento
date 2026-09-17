@@ -5,6 +5,7 @@ const SUPABASE_URL = 'https://cjfofohvanlraxkjbftc.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_DldDRI623dY73et-9oWc6Q_zlbwwXMb';
 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const ADMIN_EMAIL = 'pretin@thpet.com.br';
 
 let dataSelecionadaAdmin = '';
 
@@ -12,11 +13,11 @@ let dataSelecionadaAdmin = '';
 // INICIALIZAÇÃO DA TELA DE ADMIN
 // ==========================================
 document.addEventListener('DOMContentLoaded', async function () {
-  // Verifica se existe sessão ativa
-  const { data: { session } } = await _supabase.auth.getSession();
+  // A proteção definitiva deve estar nas políticas RLS do Supabase. Esta checagem
+  // também evita que clientes autenticados naveguem para o painel pela URL.
+  const { data: { session }, error } = await _supabase.auth.getSession();
 
-  if (!session) {
-    // Redireciona para o login se não for admin autenticado
+  if (error || !session || session.user.email?.toLowerCase() !== ADMIN_EMAIL) {
     window.location.href = 'index.html';
     return;
   }
@@ -24,6 +25,15 @@ document.addEventListener('DOMContentLoaded', async function () {
   gerarDiasSemanaAdmin();
   atualizarResumoFinanceiro();
 });
+
+function escaparHtml(valor) {
+  return String(valor ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
 
 // 1. Calcula e gera os dias da semana atual no admin
 function gerarDiasSemanaAdmin() {
@@ -108,13 +118,14 @@ async function carregarAgendamentosDoDia(dataISO) {
 
   agendamentos.forEach(item => {
     const card = document.createElement('div');
-    const estaBloqueado = item.status === 'bloqueado';
+    const status = item.status === 'bloqueado' ? 'bloqueado' : 'confirmado';
+    const estaBloqueado = status === 'bloqueado';
 
     let listaServicosHTML = '';
     if (item.servico) {
       const servicosArray = item.servico.split(/,\s*(?![0-9]{2}\b)/);
       listaServicosHTML = servicosArray
-        .map(s => `<li>• ${s.trim()}</li>`)
+        .map(s => `<li>• ${escaparHtml(s.trim())}</li>`)
         .join('');
     } else {
       listaServicosHTML = '<li>• Nenhum serviço especificado</li>';
@@ -128,14 +139,14 @@ async function carregarAgendamentosDoDia(dataISO) {
     card.className = `card-agendamento ${estaBloqueado ? 'bloqueado' : ''}`;
     card.innerHTML = `
       <div class="card-linha-topo">
-        <div class="horario-tag">${item.horario}</div>
+        <div class="horario-tag">${escaparHtml(item.horario)}</div>
         <div class="header-pet">
-          <strong class="nome-pet">${item.nome_pet}</strong>
-          <span class="porte-badge">${item.porte_especie}</span>
+          <strong class="nome-pet">${escaparHtml(item.nome_pet)}</strong>
+          <span class="porte-badge">${escaparHtml(item.porte_especie)}</span>
         </div>
         <div class="acoes-card">
-          <span class="badge ${item.status}">${item.status}</span>
-          <button class="btn-acao ${estaBloqueado ? 'ativar' : 'desativar'}" onclick="alternarStatusAgendamento(${item.id}, '${item.status}')">
+          <span class="badge ${status}">${status}</span>
+          <button type="button" class="btn-acao ${estaBloqueado ? 'ativar' : 'desativar'}">
             ${estaBloqueado ? 'Desbloquear' : 'Bloquear'}
           </button>
         </div>
@@ -154,6 +165,9 @@ async function carregarAgendamentosDoDia(dataISO) {
         </div>
       </div>
     `;
+    card.querySelector('.btn-acao').addEventListener('click', () => {
+      alternarStatusAgendamento(item.id, status);
+    });
     containerLista.appendChild(card);
   });
 }

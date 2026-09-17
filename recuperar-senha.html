@@ -3,10 +3,10 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recuperar Senha - TH Pet</title>
-  <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Pet Banho e Tosa - Recuperar Senha</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png?v=3">
 </head>
 
 <body>
@@ -57,20 +57,32 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = document.getElementById('email-recuperar').value.trim();
+      const botao = form.querySelector('button[type="submit"]');
 
-      msg.className = 'mensagem';
+      msg.className = 'mensagem carregando';
       msg.textContent = 'Enviando...';
+      botao.disabled = true;
 
-      const { error } = await _supabase.auth.resetPasswordForEmail(email, {
-        redirectTo: window.location.origin + '/redefinir-senha.html',
-      });
+      try {
+        // Mantém o link correto tanto em hospedagens quanto ao abrir o projeto localmente.
+        const redirectTo = new URL('redefinir-senha.html', window.location.href).href;
+        const { error } = await _supabase.auth.resetPasswordForEmail(email, { redirectTo });
 
-      if (error) {
+        if (error) {
+          msg.className = 'mensagem erro';
+          // Exibe a mensagem real retornada pelo Supabase
+          msg.textContent = 'Erro: ' + error.message;
+          console.error('Detalhes do erro:', error);
+        } else {
+          msg.className = 'mensagem sucesso';
+          msg.textContent = 'E-mail enviado com sucesso! Verifique sua caixa de entrada.';
+        }
+      } catch (error) {
+        console.error('Falha inesperada ao solicitar recuperação:', error);
         msg.className = 'mensagem erro';
-        msg.textContent = 'Erro ao enviar e-mail. Verifique o endereço digitado.';
-      } else {
-        msg.className = 'mensagem sucesso';
-        msg.textContent = 'E-mail de recuperação enviado! Verifique sua caixa de entrada.';
+        msg.textContent = 'Não foi possível enviar o e-mail agora. Tente novamente.';
+      } finally {
+        botao.disabled = false;
       }
     });
   </script>

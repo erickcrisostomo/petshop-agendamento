@@ -16,7 +16,8 @@ if (formLogin) {
     event.preventDefault();
 
     const email = campoEmail.value.trim();
-    const senha = campoSenha.value.trim();
+    // Senhas podem conter espaços; não as altere antes de enviá-las ao Supabase.
+    const senha = campoSenha.value;
 
     if (email === '' || senha === '') {
       caixaMensagem.className = 'mensagem erro';
