@@ -117,10 +117,16 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   // 2. Desabilita horários ocupados E horários que já passaram no dia de hoje
   async function atualizarHorariosOcupados(dataISO) {
-    const { data: agendamentosExistentes } = await _supabase
-      .from('agendamentos')
-      .select('horario')
-      .eq('data_agendamento', dataISO);
+    // A função RPC devolve apenas os horários, sem expor dados de outros clientes.
+    const { data: agendamentosExistentes, error } = await _supabase
+      .rpc('horarios_ocupados', { data_consulta: dataISO });
+
+    if (error) {
+      console.error('Erro ao consultar horários ocupados:', error);
+      caixaMensagem.className = 'mensagem erro';
+      caixaMensagem.textContent = 'Não foi possível consultar os horários agora. Tente novamente.';
+      return;
+    }
 
     const horariosOcupados = agendamentosExistentes ? agendamentosExistentes.map(a => a.horario) : [];
 
@@ -225,19 +231,6 @@ document.addEventListener('DOMContentLoaded', async function () {
       }
 
       try {
-        const { data: conflito } = await _supabase
-          .from('agendamentos')
-          .select('id')
-          .eq('data_agendamento', diaSelecionado)
-          .eq('horario', horarioSelecionado);
-
-        if (conflito && conflito.length > 0) {
-          caixaMensagem.className = 'mensagem erro';
-          caixaMensagem.textContent = 'Este horário acabou de ser reservado! Por favor, escolha outro.';
-          await atualizarHorariosOcupados(diaSelecionado);
-          return;
-        }
-
         const nomePet = document.getElementById('nome-pet')?.value || 'Pet sem nome';
         const porteEspecie = document.getElementById('porte-especie')?.value || 'Não informado';
         const valorTotal = parseFloat(valorTotalEl.textContent.replace('R$', '').replace(',', '.').trim()) || 0;
@@ -262,7 +255,12 @@ document.addEventListener('DOMContentLoaded', async function () {
 
         if (error) {
           caixaMensagem.className = 'mensagem erro';
-          caixaMensagem.textContent = 'Erro ao agendar: ' + error.message;
+          if (error.code === '23505') {
+            caixaMensagem.textContent = 'Este horário acabou de ser reservado. Escolha outro horário.';
+            await atualizarHorariosOcupados(diaSelecionado);
+          } else {
+            caixaMensagem.textContent = 'Erro ao agendar: ' + error.message;
+          }
         } else {
           caixaMensagem.className = 'mensagem sucesso';
           caixaMensagem.textContent = `Agendamento efetuado com sucesso para ${diaSelecionado} às ${horarioSelecionado}!`;
