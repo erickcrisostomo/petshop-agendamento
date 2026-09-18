@@ -16,27 +16,45 @@
       <a href="agendamento.html">Agendar</a>
       <a href="sobre.html">Sobre</a>
       <a href="suporte.html">Suporte</a>
-      <a href="index.html">Sair</a>
+      <a href="index.html" id="btn-sair">Sair</a>
     </nav>
   </header>
 
-  <main class="container">
-    <h2>Sobre o TH Pet</h2>
-    <p>Cuidando do seu pet com todo carinho, amor e profissionalismo. Serviços da melhor qualidade para o seu melhor
-      amigo!</p>
+  <main class="container container-sobre">
+    <div class="sobre-introducao">
+      <h2>Sobre o TH Pet</h2>
+      <p>Cuidamos do seu pet com carinho, segurança e atenção em cada detalhe. Nosso objetivo é que ele se sinta bem
+        antes, durante e depois do atendimento.</p>
+    </div>
 
-    <div class="info-box">
-      <h3>Horário de Funcionamento</h3>
-      <p>Segunda a Sábado: 08:00 às 18:00</p>
+    <div class="galeria-sobre">
+      <figure>
+        <img src="sobre-petshop.png" alt="Cão recebendo cuidados de banho e tosa no TH Pet">
+        <figcaption>Carinho e cuidado em cada atendimento.</figcaption>
+      </figure>
+      <figure>
+        <img src="sobre-gato-petshop.png" alt="Gato relaxando após receber cuidados de higiene">
+        <figcaption>Bem-estar para cães e gatos.</figcaption>
+      </figure>
+    </div>
 
-      <h3>Nossos Serviços</h3>
-      <ul>
-        <li>Banho e Tosa</li>
-        <li>Tosa Higiênica</li>
-        <li>Hidratação e Cortar Unhas</li>
-      </ul>
+    <div class="info-box info-sobre">
+      <div>
+        <h3>Horário de funcionamento</h3>
+        <p>Segunda a sábado: 08:00 às 18:00</p>
+      </div>
+      <div>
+        <h3>Nossos serviços</h3>
+        <ul>
+          <li>Banho e tosa</li>
+          <li>Tosa higiênica</li>
+          <li>Hidratação, corte de unhas e limpeza de ouvidos</li>
+        </ul>
+      </div>
     </div>
   </main>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="sessao.js"></script>
 </body>
 
 </html>

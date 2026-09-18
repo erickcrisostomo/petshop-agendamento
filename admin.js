@@ -22,6 +22,13 @@ document.addEventListener('DOMContentLoaded', async function () {
     return;
   }
 
+  const btnSair = document.getElementById('btn-sair');
+  btnSair?.addEventListener('click', async (event) => {
+    event.preventDefault();
+    await _supabase.auth.signOut();
+    window.location.href = 'index.html';
+  });
+
   gerarDiasSemanaAdmin();
   atualizarResumoFinanceiro();
 });
@@ -33,6 +40,18 @@ function escaparHtml(valor) {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
+}
+
+function formatarTelefone(telefone) {
+  const numeros = normalizarTelefone(telefone);
+  if (numeros.length === 11) return numeros.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+  if (numeros.length === 10) return numeros.replace(/(\d{2})(\d{4})(\d{4})/, '($1) $2-$3');
+  return escaparHtml(telefone || 'Não informado');
+}
+
+function normalizarTelefone(telefone) {
+  const numeros = String(telefone ?? '').replace(/\D/g, '');
+  return numeros.length >= 12 && numeros.startsWith('55') ? numeros.slice(2) : numeros;
 }
 
 // 1. Calcula e gera os dias da semana atual no admin
@@ -135,6 +154,11 @@ async function carregarAgendamentosDoDia(dataISO) {
       style: 'currency',
       currency: 'BRL'
     });
+    const telefoneNumeros = normalizarTelefone(item.telefone_cliente);
+    const contatoHtml = telefoneNumeros
+      ? `<a class="link-contato" href="https://wa.me/55${telefoneNumeros}" target="_blank" rel="noopener noreferrer">${formatarTelefone(telefoneNumeros)}</a>`
+      : 'Não informado';
+    const tipoBusca = escaparHtml(item.tipo_busca || 'Não informado');
 
     card.className = `card-agendamento ${estaBloqueado ? 'bloqueado' : ''}`;
     card.innerHTML = `
@@ -158,6 +182,10 @@ async function carregarAgendamentosDoDia(dataISO) {
           <ul class="lista-servicos">
             ${listaServicosHTML}
           </ul>
+          <div class="detalhes-cliente">
+            <span><strong>WhatsApp:</strong> ${contatoHtml}</span>
+            <span><strong>Chegada:</strong> ${tipoBusca}</span>
+          </div>
         </div>
         
         <div class="valor-destaque">
@@ -232,7 +260,7 @@ async function atualizarResumoFinanceiro() {
     .gte('data_agendamento', inicioSemanaISO)
     .lte('data_agendamento', fimSemanaISO);
 
-  // Consulta Mensal (pega do dia 1 ao último dia do mês atual, incluindo futuros do mesmo mês)
+  // Faturamento previsto no mês-calendário atual: somente agendamentos confirmados.
   const { data: dadosMes } = await _supabase
     .from('agendamentos')
     .select('valor')

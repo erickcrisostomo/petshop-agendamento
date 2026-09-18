@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   const form = document.getElementById('form-agendamento');
   const checkboxes = document.querySelectorAll('input[name="servico"]');
+  const opcoesBusca = document.querySelectorAll('input[name="tipo-busca"]');
   const valorTotalEl = document.getElementById('valor-total');
   const containerDias = document.getElementById('container-dias');
   const blocoHorarios = document.getElementById('bloco-horarios');
@@ -211,6 +212,13 @@ document.addEventListener('DOMContentLoaded', async function () {
         return;
       }
 
+      const tipoBusca = Array.from(opcoesBusca).find(opcao => opcao.checked)?.value;
+      if (!tipoBusca) {
+        caixaMensagem.className = 'mensagem erro';
+        caixaMensagem.textContent = 'Informe como o pet chegará para o atendimento.';
+        return;
+      }
+
       if (btnSubmit) {
         btnSubmit.disabled = true;
         btnSubmit.textContent = 'Agendando...';
@@ -233,6 +241,7 @@ document.addEventListener('DOMContentLoaded', async function () {
         const nomePet = document.getElementById('nome-pet')?.value || 'Pet sem nome';
         const porteEspecie = document.getElementById('porte-especie')?.value || 'Não informado';
         const valorTotal = parseFloat(valorTotalEl.textContent.replace('R$', '').replace(',', '.').trim()) || 0;
+        const telefoneCliente = session.user.user_metadata?.telefone || '';
 
         const { error } = await _supabase
           .from('agendamentos')
@@ -242,6 +251,9 @@ document.addEventListener('DOMContentLoaded', async function () {
               horario: horarioSelecionado,
               nome_pet: nomePet,
               porte_especie: porteEspecie,
+              cliente_id: session.user.id,
+              telefone_cliente: telefoneCliente,
+              tipo_busca: tipoBusca,
               servico: servicosSelecionados.join(', '),
               valor: valorTotal,
               status: 'confirmado'

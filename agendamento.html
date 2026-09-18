@@ -145,9 +145,25 @@
                     </div>
                 </fieldset>
 
-                <!-- Passo 4: Observações -->
+                <!-- Passo 4: Como o pet chegará -->
                 <fieldset class="grupo-form">
-                    <legend>4. Observações e Recomendações</legend>
+                    <legend>4. Chegada do Pet</legend>
+                    <p class="texto-formulario">Como o pet chegará para o atendimento?</p>
+                    <div class="opcoes-chegada">
+                        <label class="radio-card">
+                            <input type="radio" name="tipo-busca" value="Cliente levará ao pet shop" required>
+                            <span>Eu levarei meu pet ao pet shop</span>
+                        </label>
+                        <label class="radio-card">
+                            <input type="radio" name="tipo-busca" value="Solicitou busca em casa" required>
+                            <span>Preciso que busquem meu pet em casa</span>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <!-- Passo 5: Observações -->
+                <fieldset class="grupo-form">
+                    <legend>5. Observações e Recomendações</legend>
                     <div class="campo">
                         <label for="obs">Alergias, cuidados especiais ou preferências:</label>
                         <textarea id="obs" rows="3"

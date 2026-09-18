@@ -26,6 +26,15 @@ header nav {
   align-items: center;
 }
 
+header nav ul {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
 header nav a {
   color: #ffffff;
   text-decoration: none;
@@ -666,4 +675,193 @@ select, textarea {
   text-align: center;
   margin-bottom: 20px;
   color: #fce7f3;
+}
+
+.texto-formulario {
+  margin: 0 0 12px;
+  font-size: 0.9rem;
+}
+
+.opcoes-chegada {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.radio-card {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.radio-card input {
+  width: auto;
+  flex: 0 0 auto;
+}
+
+.detalhes-cliente {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+.link-contato {
+  color: #b5f5ec;
+  font-weight: 700;
+}
+
+.horario-tag,
+.badge {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.badge.bloqueado {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.acoes-card {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.btn-acao {
+  width: auto;
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 0.8rem;
+}
+
+.container-sobre {
+  max-width: 960px;
+  align-items: stretch;
+  gap: 24px;
+}
+
+.sobre-introducao {
+  text-align: center;
+}
+
+.galeria-sobre {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.galeria-sobre figure {
+  margin: 0;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #f9f9f9;
+}
+
+.galeria-sobre img {
+  display: block;
+  width: 100%;
+  height: 250px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.galeria-sobre figcaption {
+  padding: 12px;
+  color: #555;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.info-sobre {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+
+@media (max-width: 720px) {
+  header {
+    flex-direction: column;
+    gap: 14px;
+    padding: 14px 18px;
+  }
+
+  header nav,
+  header nav ul {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  header nav a {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+
+  main {
+    align-items: flex-start;
+    padding: 20px 12px;
+  }
+
+  section,
+  .container {
+    max-width: none;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+  }
+
+  .campo-grid,
+  .opcoes-chegada,
+  .galeria-sobre,
+  .info-sobre {
+    grid-template-columns: 1fr;
+    flex-direction: column;
+  }
+
+  .main-admin {
+    width: 100%;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 0;
+  }
+
+  .grid-dias-admin {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card-linha-topo,
+  .card-corpo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .acoes-card,
+  .valor-destaque {
+    width: 100%;
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .btn-acao {
+    width: auto;
+  }
+
+  .galeria-sobre img {
+    height: 220px;
+  }
 }
