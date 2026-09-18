@@ -35,6 +35,8 @@ alter table public.agendamentos enable row level security;
 
 -- Remove regras permissivas que expunham a tabela inteira.
 drop policy if exists "Permitir alteração de agendamentos" on public.agendamentos;
+-- A regra criada anteriormente tinha um espaço final no nome.
+drop policy if exists "Permitir alteração de agendamentos " on public.agendamentos;
 drop policy if exists "Permitir inserção de agendamentos" on public.agendamentos;
 drop policy if exists "Permitir leitura de agendamentos" on public.agendamentos;
 drop policy if exists "Usuarios podem criar agendamentos" on public.agendamentos;
