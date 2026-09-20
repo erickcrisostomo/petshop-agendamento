@@ -1,59 +1,136 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH Pet Banho e Tosa - Login</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png?v=3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Agende banho e tosa para o seu pet pelo WhatsApp, sem criar conta.">
+  <title>TH Pet Banho e Tosa | Agende pelo WhatsApp</title>
+  <link rel="stylesheet" href="publico.css">
+  <link rel="icon" type="image/png" href="favicon.png?v=3">
 </head>
 
-<body>
-    <header>
-        <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
+<body class="pagina-publica">
+  <header class="topo-publico">
+    <a class="marca-publica" href="index.html" aria-label="TH Pet - início">
+      <img src="LogoPet.jpg" alt="TH Pet Banho e Tosa">
+      <span>TH Pet<br><small>Banho &amp; Tosa</small></span>
+    </a>
+    <nav aria-label="Navegação principal">
+      <a href="#agendar">Agendar</a>
+      <a href="sobre.html">Sobre</a>
+      <a href="suporte.html">Suporte</a>
+    </nav>
+    <a class="link-gestao" href="admin-login.html">Área do pet shop</a>
+  </header>
 
-    </header>
+  <main>
+    <section class="hero-publico">
+      <div>
+        <p class="selo">✦ AGENDAMENTO SIMPLES E RÁPIDO</p>
+        <h1>O cuidado que o seu pet merece, sem criar conta.</h1>
+        <p class="texto-hero">Escolha os serviços, informe o melhor horário e envie a solicitação pelo WhatsApp. Nossa equipe confirma tudo com você.</p>
+        <a class="botao-principal" href="#agendar">Agendar para meu pet <span>→</span></a>
+      </div>
+      <aside class="cartao-hero" aria-label="Como funciona">
+        <span class="icone-pata">🐾</span>
+        <h2>Em 3 passos</h2>
+        <ol>
+          <li>Escolha os cuidados do pet</li>
+          <li>Informe dia e horário desejados</li>
+          <li>Finalize a conversa no WhatsApp</li>
+        </ol>
+        <p>Você só paga conforme combinado com a equipe.</p>
+      </aside>
+    </section>
 
-    <main>
-        <section>
-            <h2>Login</h2>
-            <form id="form-login">
-                <div class="campo">
-                    <label for="campo-email">E-mail</label>
-                    <input type="email" id="campo-email" placeholder="seu@email.com" required>
-                </div>
+    <section class="beneficios" aria-label="Diferenciais">
+      <article><span>💬</span><div><strong>Confirmação humana</strong><small>Falamos com você pelo WhatsApp</small></div></article>
+      <article><span>🗓️</span><div><strong>Horário organizado</strong><small>Evite esperas desnecessárias</small></div></article>
+      <article><span>💳</span><div><strong>Pagamento combinado</strong><small>Pix, cartão ou dinheiro</small></div></article>
+    </section>
 
-                <div class="campo">
-                    <label for="campo-senha">Senha</label>
-                    <input type="password" id="campo-senha" placeholder="Digite sua senha" required>
-                </div>
+    <section class="area-agendamento" id="agendar">
+      <div class="cabecalho-secao">
+        <p class="selo">SOLICITAÇÃO DE AGENDAMENTO</p>
+        <h2>Vamos cuidar do seu melhor amigo?</h2>
+        <p>Preencha os dados abaixo. O horário é confirmado pela equipe após o contato no WhatsApp.</p>
+      </div>
 
-                <div class="opcoes-login">
-                    <a href="recuperar-senha.html" class="link-secundario">Esqueceu a senha?</a>
-                </div>
+      <form id="form-solicitacao" novalidate>
+        <div class="etapa-formulario">
+          <div class="titulo-etapa"><span>1</span><div><h3>Cuidados desejados</h3><p>Selecione um ou mais serviços.</p></div></div>
+          <div class="grade-servicos">
+            <label class="servico-card"><input type="checkbox" name="servico" value="banho_tosa"><span><strong>Banho e tosa completa</strong><small>R$ 60,00</small></span><b>+</b></label>
+            <label class="servico-card"><input type="checkbox" name="servico" value="banho"><span><strong>Apenas banho</strong><small>R$ 40,00</small></span><b>+</b></label>
+            <label class="servico-card"><input type="checkbox" name="servico" value="tosa_higienica"><span><strong>Tosa higiênica</strong><small>R$ 25,00</small></span><b>+</b></label>
+            <label class="servico-card"><input type="checkbox" name="servico" value="unhas_ouvidos"><span><strong>Unhas e ouvidos</strong><small>R$ 15,00</small></span><b>+</b></label>
+            <label class="servico-card"><input type="checkbox" name="servico" value="dentes"><span><strong>Escovação de dentes</strong><small>R$ 10,00</small></span><b>+</b></label>
+          </div>
+        </div>
 
-                <button type="submit">Entrar</button>
+        <div class="etapa-formulario">
+          <div class="titulo-etapa"><span>2</span><div><h3>Seu pet e seu contato</h3><p>Precisamos destas informações para atender bem.</p></div></div>
+          <div class="grade-campos">
+            <label>Seu nome<input id="nome-tutor" maxlength="100" autocomplete="name" placeholder="Ex.: Ana Souza" required></label>
+            <label>WhatsApp<input id="telefone-tutor" inputmode="tel" maxlength="20" autocomplete="tel" placeholder="(38) 99208-6784" required></label>
+            <label>Nome do pet<input id="nome-pet" maxlength="80" placeholder="Ex.: Mel" required></label>
+            <label>Espécie<select id="especie" required><option value="">Selecione</option><option>Cão</option><option>Gato</option><option>Outro</option></select></label>
+            <label>Porte<select id="porte" required><option value="">Selecione</option><option>Pequeno</option><option>Médio</option><option>Grande</option></select></label>
+            <label>Temperamento<select id="temperamento" required><option value="">Selecione</option><option>Manso / calmo</option><option>Agitado / brincalhão</option><option>Arisco / bravo</option></select></label>
+          </div>
+        </div>
 
-                <div id="mensagem" class="mensagem"></div>
+        <div class="etapa-formulario">
+          <div class="titulo-etapa"><span>3</span><div><h3>Dia e horário desejados</h3><p>Mostramos somente os horários já ocupados; a confirmação final é feita pela equipe.</p></div></div>
+          <div class="dias-publicos" id="container-dias" aria-label="Datas disponíveis"></div>
+          <div class="horarios-publicos" id="bloco-horarios" hidden>
+            <p>Escolha um horário:</p>
+            <div id="grid-horarios" class="grade-horarios"></div>
+          </div>
+        </div>
 
-                <div class="link-cadastro">
-                    <p>Não tem uma conta? <a href="cadastro.html">Cadastre-se</a></p>
-                </div>
-            </form>
-        </section>
-    </main>
+        <div class="etapa-formulario">
+          <div class="titulo-etapa"><span>4</span><div><h3>Como o pet chegará?</h3><p>Assim a equipe já se prepara para o atendimento.</p></div></div>
+          <div class="opcoes-publicas">
+            <label><input type="radio" name="tipo-chegada" value="Cliente levará ao pet shop" required><span>Eu levarei meu pet ao pet shop</span></label>
+            <label><input type="radio" name="tipo-chegada" value="Solicitou busca em casa" required><span>Preciso que busquem meu pet em casa</span></label>
+          </div>
+          <label class="campo-endereco" id="campo-endereco" hidden>Endereço para busca<input id="endereco" maxlength="220" autocomplete="street-address" placeholder="Rua, número, bairro e ponto de referência"></label>
+        </div>
 
-    <footer>
-        <ul>
-            <li><a href="#">Privacidade</a></li>
-            <li><a href="#">Termos</a></li>
-        </ul>
-        <p><small>&copy; 2026 Th. Todos os direitos reservados.</small></p>
-    </footer>
+        <div class="etapa-formulario">
+          <div class="titulo-etapa"><span>5</span><div><h3>Forma de pagamento</h3><p>O pagamento é combinado com a equipe; não há cobrança online nesta etapa.</p></div></div>
+          <div class="opcoes-publicas pagamento">
+            <label><input type="radio" name="pagamento" value="Pix" required><span>Pix</span></label>
+            <label><input type="radio" name="pagamento" value="Cartão de crédito" required><span>Cartão de crédito</span></label>
+            <label><input type="radio" name="pagamento" value="Cartão de débito" required><span>Cartão de débito</span></label>
+            <label><input type="radio" name="pagamento" value="Dinheiro" required><span>Dinheiro</span></label>
+          </div>
+          <label class="campo-observacao">Observações (opcional)<textarea id="observacoes" maxlength="500" rows="3" placeholder="Alergias, cuidados especiais ou preferências."></textarea></label>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="script.js"></script>
+        <input class="campo-isca" id="site" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <aside class="resumo-publico">
+          <div><span>Serviços selecionados</span><strong id="resumo-servicos">Nenhum serviço selecionado</strong></div>
+          <div><span>Valor estimado</span><strong id="valor-total">R$ 0,00</strong></div>
+          <small id="aviso-busca">A taxa de busca, quando necessária, será confirmada no WhatsApp.</small>
+        </aside>
+
+        <button class="botao-finalizar" type="submit">Finalizar solicitação pelo WhatsApp <span>↗</span></button>
+        <p id="mensagem" class="mensagem-publica" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <footer class="rodape-publico">
+    <span>TH Pet Banho &amp; Tosa</span>
+    <a href="suporte.html">Precisa de ajuda?</a>
+    <a href="admin-login.html">Área administrativa</a>
+  </footer>
+
+  <script src="solicitacao-publica.js"></script>
 </body>
 
 </html>

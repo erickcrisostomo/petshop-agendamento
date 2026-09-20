@@ -1,0 +1,102 @@
+:root {
+  --rosa: #d94683;
+  --rosa-escuro: #a92862;
+  --petroleo: #203a43;
+  --fundo: #fff9f7;
+  --texto: #24333b;
+  --borda: #eadeda;
+  --sucesso: #21835a;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body.pagina-publica { margin: 0; background: var(--fundo); color: var(--texto); font-family: Arial, Helvetica, sans-serif; line-height: 1.45; }
+button, input, select, textarea { font: inherit; }
+.topo-publico { width: min(1180px, calc(100% - 32px)); margin: auto; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.marca-publica { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--petroleo); font-weight: 800; line-height: 1; }
+.marca-publica img { height: 48px; width: 48px; border-radius: 50%; object-fit: cover; }
+.marca-publica small { font-size: .7rem; font-weight: 600; color: #69767c; }
+.topo-publico nav { display: flex; gap: 24px; }
+.topo-publico nav a, .link-gestao, .rodape-publico a { color: #4e5a60; text-decoration: none; font-weight: 700; font-size: .9rem; }
+.link-gestao { border: 1px solid var(--borda); padding: 10px 14px; border-radius: 99px; }
+.hero-publico { background: linear-gradient(125deg, #f9e6ed 0%, #fff3ee 58%, #eadce5 100%); padding: 72px max(16px, calc((100% - 1100px) / 2)); display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(280px, .7fr); gap: 56px; align-items: center; }
+.selo { display: inline-block; margin: 0 0 13px; color: var(--rosa-escuro); letter-spacing: .07em; font-size: .72rem; font-weight: 800; }
+.hero-publico h1 { max-width: 700px; font-size: clamp(2.35rem, 5vw, 4.4rem); line-height: 1.02; letter-spacing: -.05em; margin: 0; color: var(--petroleo); }
+.texto-hero { max-width: 590px; margin: 22px 0 30px; color: #53636a; font-size: 1.1rem; }
+.botao-principal, .botao-finalizar { display: inline-flex; align-items: center; justify-content: center; gap: 15px; background: var(--rosa); color: white; text-decoration: none; border: 0; border-radius: 12px; padding: 15px 21px; font-weight: 800; cursor: pointer; box-shadow: 0 10px 24px #d9468330; }
+.botao-principal:hover, .botao-finalizar:hover { background: var(--rosa-escuro); }
+.cartao-hero { background: var(--petroleo); color: white; border-radius: 22px; padding: 30px; box-shadow: 0 16px 40px #203a4326; }
+.icone-pata { font-size: 2rem; }
+.cartao-hero h2 { margin: 12px 0; font-size: 1.45rem; }
+.cartao-hero ol { margin: 0 0 20px; padding-left: 22px; }
+.cartao-hero li { padding: 5px 0; }
+.cartao-hero p { color: #d4e0e3; font-size: .88rem; margin: 0; }
+.beneficios { width: min(1100px, calc(100% - 32px)); margin: -25px auto 55px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; position: relative; }
+.beneficios article { background: white; border: 1px solid var(--borda); border-radius: 14px; padding: 17px; display: flex; align-items: center; gap: 13px; box-shadow: 0 6px 15px #5430240c; }
+.beneficios article > span { font-size: 1.4rem; }
+.beneficios strong, .beneficios small { display: block; }
+.beneficios small { color: #728087; font-size: .77rem; }
+.area-agendamento { width: min(900px, calc(100% - 32px)); margin: 0 auto 72px; }
+.cabecalho-secao { text-align: center; margin-bottom: 30px; }
+.cabecalho-secao h2 { margin: 0; color: var(--petroleo); font-size: clamp(1.75rem, 3vw, 2.5rem); letter-spacing: -.035em; }
+.cabecalho-secao > p:last-child { color: #6a777c; margin: 9px auto 0; max-width: 600px; }
+.etapa-formulario { background: white; border: 1px solid var(--borda); border-radius: 18px; padding: 28px; margin-bottom: 16px; }
+.titulo-etapa { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #f0e7e4; padding-bottom: 17px; margin-bottom: 19px; }
+.titulo-etapa > span { align-self: start; display: grid; place-items: center; flex: 0 0 29px; height: 29px; color: white; background: var(--rosa); border-radius: 50%; font-size: .84rem; font-weight: 800; }
+.titulo-etapa h3 { margin: 0; font-size: 1.1rem; color: var(--petroleo); }
+.titulo-etapa p { margin: 2px 0 0; color: #77848a; font-size: .85rem; }
+.grade-servicos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+.servico-card { position: relative; display: flex; justify-content: space-between; align-items: center; padding: 16px; border: 1px solid var(--borda); border-radius: 12px; cursor: pointer; }
+.servico-card input { position: absolute; opacity: 0; }
+.servico-card span strong, .servico-card span small { display: block; }
+.servico-card span small { color: var(--rosa-escuro); font-weight: 800; margin-top: 3px; }
+.servico-card b { color: var(--rosa); font-size: 1.25rem; }
+.servico-card:has(input:checked) { border-color: var(--rosa); background: #fff3f7; box-shadow: inset 0 0 0 1px var(--rosa); }
+.servico-card:has(input:checked) b { font-size: 0; }
+.servico-card:has(input:checked) b::after { content: '✓'; font-size: 1rem; }
+.grade-campos { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+.grade-campos label, .campo-endereco, .campo-observacao { display: grid; gap: 6px; color: #536167; font-size: .84rem; font-weight: 800; }
+.grade-campos input, .grade-campos select, .campo-endereco input, .campo-observacao textarea { width: 100%; border: 1px solid #d9dedd; border-radius: 9px; background: #fff; padding: 12px; color: var(--texto); outline: none; }
+.grade-campos input:focus, .grade-campos select:focus, .campo-endereco input:focus, .campo-observacao textarea:focus { border-color: var(--rosa); box-shadow: 0 0 0 3px #d946831c; }
+.dias-publicos, .grade-horarios { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; }
+.dia-publico, .hora-publica { border: 1px solid var(--borda); background: #fff; border-radius: 9px; padding: 10px 4px; color: var(--texto); cursor: pointer; font-weight: 700; }
+.dia-publico span { display: block; font-size: .74rem; color: #77848a; }
+.dia-publico strong { display: block; font-size: .82rem; margin-top: 2px; }
+.dia-publico.selecionado, .hora-publica.selecionado { background: var(--petroleo); border-color: var(--petroleo); color: white; }
+.dia-publico.selecionado span { color: #d4e0e3; }
+.dia-publico:disabled, .hora-publica:disabled { opacity: .45; cursor: not-allowed; text-decoration: line-through; }
+.horarios-publicos { margin-top: 20px; }
+.horarios-publicos p { color: #536167; font-size: .86rem; font-weight: 800; }
+.grade-horarios { grid-template-columns: repeat(5, 1fr); }
+.opcoes-publicas { display: grid; grid-template-columns: repeat(2, 1fr); gap: 11px; }
+.opcoes-publicas label { position: relative; cursor: pointer; }
+.opcoes-publicas input { position: absolute; opacity: 0; }
+.opcoes-publicas span { display: block; padding: 13px; border: 1px solid var(--borda); border-radius: 10px; font-size: .9rem; font-weight: 700; }
+.opcoes-publicas label:has(input:checked) span { border-color: var(--rosa); color: var(--rosa-escuro); background: #fff3f7; box-shadow: inset 0 0 0 1px var(--rosa); }
+.campo-endereco, .campo-observacao { margin-top: 16px; }
+.resumo-publico { border: 1px solid #efccd9; background: #fff5f8; border-radius: 16px; padding: 20px; margin: 19px 0 12px; }
+.resumo-publico > div { display: flex; justify-content: space-between; gap: 20px; padding: 5px 0; }
+.resumo-publico span { color: #5f6b70; font-size: .88rem; }
+.resumo-publico strong { color: var(--petroleo); text-align: right; }
+.resumo-publico small { display: block; border-top: 1px solid #f2d9e2; margin-top: 10px; padding-top: 10px; color: #6b6064; }
+.botao-finalizar { width: 100%; padding: 17px; font-size: 1rem; }
+.botao-finalizar:disabled { opacity: .65; cursor: wait; }
+.mensagem-publica { min-height: 20px; margin: 13px 0 0; text-align: center; font-weight: 700; font-size: .9rem; }
+.mensagem-publica.erro { color: #b42318; }
+.mensagem-publica.sucesso { color: var(--sucesso); }
+.campo-isca { position: absolute; left: -10000px; opacity: 0; pointer-events: none; }
+.rodape-publico { width: min(1100px, calc(100% - 32px)); border-top: 1px solid var(--borda); margin: auto; padding: 28px 0 36px; display: flex; gap: 20px; justify-content: space-between; color: #68767b; font-size: .84rem; }
+
+@media (max-width: 720px) {
+  .topo-publico { min-height: 66px; gap: 12px; }
+  .topo-publico nav { display: none; }
+  .link-gestao { margin-left: auto; font-size: .75rem; padding: 8px 10px; }
+  .hero-publico { grid-template-columns: 1fr; gap: 30px; padding-top: 44px; padding-bottom: 58px; }
+  .cartao-hero { padding: 22px; }
+  .beneficios { grid-template-columns: 1fr; margin-top: -22px; margin-bottom: 38px; }
+  .etapa-formulario { padding: 19px; }
+  .grade-servicos, .grade-campos, .opcoes-publicas { grid-template-columns: 1fr; }
+  .dias-publicos { grid-template-columns: repeat(4, 1fr); }
+  .grade-horarios { grid-template-columns: repeat(3, 1fr); }
+  .rodape-publico { flex-wrap: wrap; justify-content: flex-start; }
+}

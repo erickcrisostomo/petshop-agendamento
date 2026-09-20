@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TH Pet Banho e Tosa - Área administrativa</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png?v=3">
+</head>
+
+<body>
+    <header>
+        <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
+    </header>
+
+    <main>
+        <section>
+            <h2>Área administrativa</h2>
+            <form id="form-login">
+                <div class="campo">
+                    <label for="campo-email">E-mail</label>
+                    <input type="email" id="campo-email" placeholder="seu@email.com" autocomplete="username" required>
+                </div>
+
+                <div class="campo">
+                    <label for="campo-senha">Senha</label>
+                    <input type="password" id="campo-senha" placeholder="Digite sua senha" autocomplete="current-password" required>
+                </div>
+
+                <div class="opcoes-login">
+                    <a href="recuperar-senha.html" class="link-secundario">Esqueceu a senha?</a>
+                </div>
+
+                <button type="submit">Entrar</button>
+                <div id="mensagem" class="mensagem"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p><small>&copy; 2026 TH Pet. Todos os direitos reservados.</small></p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

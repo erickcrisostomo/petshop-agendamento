@@ -19,6 +19,17 @@
         </nav>
     </header>
 
+    <section class="section-solicitacoes-admin" aria-labelledby="titulo-solicitacoes">
+        <div>
+            <p class="eyebrow-admin">NOVAS SOLICITAÇÕES</p>
+            <h2 id="titulo-solicitacoes">Pedidos aguardando confirmação</h2>
+            <p>Confira a mensagem do WhatsApp e confirme o horário quando estiver tudo certo.</p>
+        </div>
+        <div id="lista-solicitacoes" class="lista-solicitacoes-admin" aria-live="polite">
+            <p>Carregando solicitações...</p>
+        </div>
+    </section>
+
     <main class="main-admin">
         <!-- Coluna 1: Métricas e Faturamento -->
         <aside class="coluna-dashboards">
@@ -71,6 +82,7 @@
 
     <!-- Lógica da página Admin carregada DEPOIS -->
     <script src="admin.js"></script>
+    <script src="solicitacoes-admin.js"></script>
 </body>
 
 </html>

@@ -5,6 +5,7 @@ const SUPABASE_URL = 'https://cjfofohvanlraxkjbftc.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_DldDRI623dY73et-9oWc6Q_zlbwwXMb';
 
 const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+const ADMIN_EMAIL = 'pretin@thpet.com.br';
 
 const formLogin = document.getElementById('form-login');
 const campoEmail = document.getElementById('campo-email');
@@ -63,18 +64,21 @@ if (formLogin) {
         caixaMensagem.textContent = 'Erro ao efetuar login. Tente novamente.';
       }
     } else {
+      // A nova experiência não exige conta de cliente. Esta tela é exclusiva
+      // para a equipe do pet shop; contas antigas não ganham acesso ao painel.
+      if (data.user.email?.toLowerCase() !== ADMIN_EMAIL) {
+        await _supabase.auth.signOut();
+        caixaMensagem.className = 'mensagem erro';
+        caixaMensagem.textContent = 'Esta área é exclusiva da equipe do pet shop.';
+        return;
+      }
+
       caixaMensagem.className = 'mensagem sucesso';
       caixaMensagem.textContent = 'Login efetuado com sucesso! Redirecionando...';
 
-      // Redirecionamento dinâmico baseado no e-mail
+      // Somente a conta administrativa pode abrir o painel.
       setTimeout(() => {
-        if (email.toLowerCase() === 'pretin@thpet.com.br') {
-          // E-mail do Administrador
-          window.location.href = 'ThaisPet@.html';
-        } else {
-          // E-mail de Cliente
-          window.location.href = 'agendamento.html';
-        }
+        window.location.href = 'ThaisPet@.html';
       }, 1500);
     }
   });
