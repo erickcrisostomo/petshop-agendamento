@@ -29,6 +29,13 @@ document.addEventListener('DOMContentLoaded', () => {
     return `${ano}-${mes}-${dia}`;
   };
 
+  function horarioJaPassou(data, horario) {
+    const agora = new Date();
+    if (data !== dataISO(agora)) return false;
+    const [hora, minuto] = horario.split(':').map(Number);
+    return hora < agora.getHours() || (hora === agora.getHours() && minuto <= agora.getMinutes());
+  }
+
   const exibirMensagem = (texto, tipo = '') => {
     mensagem.textContent = texto;
     mensagem.className = `mensagem-publica ${tipo}`;
@@ -48,11 +55,17 @@ document.addEventListener('DOMContentLoaded', () => {
   function gerarDias() {
     const hoje = new Date();
     hoje.setHours(0, 0, 0, 0);
+    const diaDaSemana = hoje.getDay();
+    const segunda = new Date(hoje);
+
+    // O pet shop atende de segunda a sábado. No domingo, já exibimos a
+    // próxima semana de atendimento em vez de uma agenda vazia.
+    segunda.setDate(hoje.getDate() + (diaDaSemana === 0 ? 1 : 1 - diaDaSemana));
     diasEl.innerHTML = '';
-    for (let i = 0; i < 14; i += 1) {
-      const data = new Date(hoje);
-      data.setDate(hoje.getDate() + i);
-      if (data.getDay() === 0) continue;
+    for (let i = 0; i < 6; i += 1) {
+      const data = new Date(segunda);
+      data.setDate(segunda.getDate() + i);
+      if (data < hoje) continue;
       const botaoDia = document.createElement('button');
       botaoDia.type = 'button';
       botaoDia.className = 'dia-publico';
@@ -82,8 +95,12 @@ document.addEventListener('DOMContentLoaded', () => {
         botaoHorario.type = 'button';
         botaoHorario.className = 'hora-publica';
         botaoHorario.textContent = horario;
-        botaoHorario.disabled = ocupados.has(horario);
-        if (botaoHorario.disabled) botaoHorario.title = 'Horário já confirmado';
+        const jaPassou = horarioJaPassou(data, horario);
+        const estaOcupado = ocupados.has(horario);
+        botaoHorario.disabled = estaOcupado || jaPassou;
+        if (botaoHorario.disabled) {
+          botaoHorario.title = jaPassou ? 'Este horário já passou' : 'Horário já confirmado';
+        }
         botaoHorario.addEventListener('click', () => {
           document.querySelectorAll('.hora-publica').forEach(item => item.classList.remove('selecionado'));
           botaoHorario.classList.add('selecionado');

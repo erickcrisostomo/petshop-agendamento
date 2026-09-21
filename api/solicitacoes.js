@@ -19,11 +19,32 @@ function texto(valor, tamanhoMaximo) {
   return typeof valor === 'string' ? valor.trim().slice(0, tamanhoMaximo) : '';
 }
 
-function hojeNoBrasil() {
+function agoraNoBrasil() {
   const partes = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit'
+    timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', hourCycle: 'h23'
   }).formatToParts(new Date()).reduce((objeto, parte) => ({ ...objeto, [parte.type]: parte.value }), {});
-  return `${partes.year}-${partes.month}-${partes.day}`;
+  return {
+    data: `${partes.year}-${partes.month}-${partes.day}`,
+    hora: Number(partes.hour),
+    minuto: Number(partes.minute)
+  };
+}
+
+function pertenceASemanaDeAtendimento(data, hoje) {
+  const inicio = new Date(`${hoje}T12:00:00Z`);
+  const diaDaSemana = inicio.getUTCDay();
+  inicio.setUTCDate(inicio.getUTCDate() + (diaDaSemana === 0 ? 1 : 1 - diaDaSemana));
+  const fim = new Date(inicio);
+  fim.setUTCDate(fim.getUTCDate() + 5);
+  const formatar = valor => valor.toISOString().slice(0, 10);
+  return data >= formatar(inicio) && data <= formatar(fim);
+}
+
+function horarioJaPassouHoje(data, horario, agora) {
+  if (data !== agora.data) return false;
+  const [hora, minuto] = horario.split(':').map(Number);
+  return hora < agora.hora || (hora === agora.hora && minuto <= agora.minuto);
 }
 
 module.exports = async (req, res) => {
@@ -50,10 +71,13 @@ module.exports = async (req, res) => {
     : telefoneInformado;
   const idsServicos = Array.isArray(corpo.servicos) ? [...new Set(corpo.servicos.filter(id => typeof id === 'string'))] : [];
   const servicos = idsServicos.map(id => SERVICOS[id]).filter(Boolean);
+  const agora = agoraNoBrasil();
 
   if (!nomeTutor || !nomePet || !especie || !porte || !temperamento || telefoneNumeros.length < 10 ||
-    servicos.length === 0 || !/^\d{4}-\d{2}-\d{2}$/.test(dataDesejada) || dataDesejada < hojeNoBrasil() ||
+    servicos.length === 0 || !/^\d{4}-\d{2}-\d{2}$/.test(dataDesejada) ||
+    !pertenceASemanaDeAtendimento(dataDesejada, agora.data) ||
     !HORARIOS.has(horarioDesejado) || !TIPOS_CHEGADA.has(tipoChegada) || !PAGAMENTOS.has(pagamento) ||
+    horarioJaPassouHoje(dataDesejada, horarioDesejado, agora) ||
     (tipoChegada === 'Solicitou busca em casa' && !endereco)) {
     return responder(res, 400, { erro: 'Confira os dados obrigatórios da solicitação.' });
   }
