@@ -168,6 +168,7 @@ async function carregarAgendamentosDoDia(dataISO) {
       ? `<a class="link-contato" href="https://wa.me/55${telefoneNumeros}" target="_blank" rel="noopener noreferrer">${formatarTelefone(telefoneNumeros)}</a>`
       : 'Não informado';
     const tipoBusca = escaparHtml(item.tipo_busca || 'Não informado');
+    const pagamento = escaparHtml(item.pagamento || 'Não informado');
 
     card.className = `card-agendamento ${estaBloqueado ? 'bloqueado' : ''}`;
     card.innerHTML = `
@@ -192,6 +193,7 @@ async function carregarAgendamentosDoDia(dataISO) {
           <div class="detalhes-cliente">
             <span><strong>WhatsApp:</strong> ${contatoHtml}</span>
             <span><strong>Chegada:</strong> ${tipoBusca}</span>
+            <span><strong>Pagamento:</strong> ${pagamento}</span>
           </div>
         </div>
         

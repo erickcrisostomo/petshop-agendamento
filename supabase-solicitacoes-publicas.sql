@@ -87,12 +87,12 @@ begin
 
   insert into public.agendamentos (
     data_agendamento, horario, nome_pet, porte_especie, servico, valor,
-    status, cliente_id, telefone_cliente, tipo_busca
+    status, cliente_id, telefone_cliente, tipo_busca, pagamento
   ) values (
     solicitacao.data_desejada, solicitacao.horario_desejado, solicitacao.nome_pet,
     concat(solicitacao.especie, ' - ', solicitacao.porte), servicos_texto,
     solicitacao.valor_estimado, 'confirmado', null, solicitacao.telefone,
-    solicitacao.tipo_chegada
+    solicitacao.tipo_chegada, solicitacao.pagamento
   );
 
   update public.solicitacoes_agendamento

@@ -4,7 +4,8 @@
 alter table public.agendamentos
   add column if not exists cliente_id uuid references auth.users(id) on delete set null,
   add column if not exists telefone_cliente text,
-  add column if not exists tipo_busca text;
+  add column if not exists tipo_busca text,
+  add column if not exists pagamento text;
 
 alter table public.agendamentos
   drop constraint if exists agendamentos_tipo_busca_valido;
