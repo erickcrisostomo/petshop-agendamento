@@ -32,33 +32,43 @@
 
     <main class="main-admin">
         <!-- Coluna 1: Métricas e Faturamento -->
-        <aside class="coluna-dashboards">
-            <h2>Resumo Financeiro</h2>
-
-            <div class="card-metrica">
-                <span class="titulo-metrica">Faturamento Semanal</span>
-                <h3 id="fat-semanal">R$ 0,00</h3>
-                <small>Segunda a Sábado</small>
+        <aside class="coluna-dashboards" aria-label="Resumo de receita e agenda">
+            <div class="cabecalho-resumo">
+                <p class="eyebrow-admin">VISÃO GERAL</p>
+                <h2>Resumo da agenda</h2>
+                <p>Valores dos atendimentos já confirmados.</p>
             </div>
 
             <div class="card-metrica">
-                <span class="titulo-metrica">Faturamento Mensal</span>
+                <span class="titulo-metrica">Receita da semana</span>
+                <h3 id="fat-semanal">R$ 0,00</h3>
+                <small id="periodo-semanal">Carregando período...</small>
+            </div>
+
+            <div class="card-metrica">
+                <span class="titulo-metrica">Receita do mês</span>
                 <h3 id="fat-mensal">R$ 0,00</h3>
-                <small>Mês atual (confirmados)</small>
+                <small id="periodo-mensal">Carregando período...</small>
             </div>
 
             <div class="card-metrica">
                 <span class="titulo-metrica">Total de Agendamentos</span>
                 <h3 id="total-pets">0 Pets</h3>
-                <small>Nesta semana</small>
+                <small id="periodo-agendamentos">Nesta semana</small>
             </div>
         </aside>
 
         <!-- Coluna 2: Agenda do Pet Shop -->
-        <section class="section-admin-agenda">
-            <h2>Agenda do Pet Shop</h2>
+        <section class="section-admin-agenda" aria-labelledby="titulo-agenda-admin">
+            <div class="cabecalho-agenda">
+                <div>
+                    <p class="eyebrow-agenda">AGENDA SEMANAL</p>
+                    <h2 id="titulo-agenda-admin">Atendimentos confirmados</h2>
+                </div>
+                <span id="dia-selecionado-admin" class="dia-selecionado-admin">Selecione um dia</span>
+            </div>
 
-            <label class="label-sub">Selecione o dia para visualizar os horários:</label>
+            <p class="label-sub">Selecione um dia para consultar os horários reservados.</p>
             <div class="grid-dias-admin" id="container-dias-admin">
                 <!-- Dias gerados via admin.js -->
             </div>

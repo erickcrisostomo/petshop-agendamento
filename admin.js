@@ -9,6 +9,13 @@ const ADMIN_EMAIL = 'pretin@thpet.com.br';
 
 let dataSelecionadaAdmin = '';
 
+function formatarDataCurta(dataISO) {
+  const [ano, mes, dia] = dataISO.split('-').map(Number);
+  return new Date(ano, mes - 1, dia).toLocaleDateString('pt-BR', {
+    weekday: 'long', day: '2-digit', month: '2-digit'
+  });
+}
+
 // ==========================================
 // INICIALIZAÇÃO DA TELA DE ADMIN
 // ==========================================
@@ -95,6 +102,7 @@ function gerarDiasSemanaAdmin() {
 
     if (i === 0) {
       dataSelecionadaAdmin = dataISO;
+      atualizarDiaSelecionado(dataISO);
       carregarAgendamentosDoDia(dataISO);
     }
 
@@ -102,6 +110,7 @@ function gerarDiasSemanaAdmin() {
       document.querySelectorAll('.btn-dia-admin').forEach(b => b.classList.remove('selecionado'));
       this.classList.add('selecionado');
       dataSelecionadaAdmin = dataISO;
+      atualizarDiaSelecionado(dataISO);
       carregarAgendamentosDoDia(dataISO);
     });
 
@@ -114,7 +123,7 @@ async function carregarAgendamentosDoDia(dataISO) {
   const containerLista = document.getElementById('lista-horarios-admin');
   if (!containerLista) return;
 
-  containerLista.innerHTML = '<p style="color: white;">Carregando agendamentos...</p>';
+  containerLista.innerHTML = '<p class="estado-agenda">Carregando agendamentos...</p>';
 
   const { data: agendamentos, error } = await _supabase
     .from('agendamentos')
@@ -124,14 +133,14 @@ async function carregarAgendamentosDoDia(dataISO) {
 
   if (error) {
     console.error('Erro ao buscar agendamentos:', error.message);
-    containerLista.innerHTML = '<p style="color: white;">Erro ao carregar dados.</p>';
+    containerLista.innerHTML = '<p class="estado-agenda">Erro ao carregar dados.</p>';
     return;
   }
 
   containerLista.innerHTML = '';
 
   if (agendamentos.length === 0) {
-    containerLista.innerHTML = '<p style="color: white; opacity: 0.8;">Nenhum agendamento para este dia.</p>';
+    containerLista.innerHTML = '<div class="estado-agenda vazio"><strong>Agenda livre</strong><span>Nenhum atendimento confirmado para este dia.</span></div>';
     return;
   }
 
@@ -169,10 +178,8 @@ async function carregarAgendamentosDoDia(dataISO) {
           <span class="porte-badge">${escaparHtml(item.porte_especie)}</span>
         </div>
         <div class="acoes-card">
-          <span class="badge ${status}">${status}</span>
-          <button type="button" class="btn-acao ${estaBloqueado ? 'ativar' : 'desativar'}">
-            ${estaBloqueado ? 'Desbloquear' : 'Bloquear'}
-          </button>
+          <span class="badge ${status}">${estaBloqueado ? 'bloqueado' : 'confirmado'}</span>
+          ${estaBloqueado ? '<button type="button" class="btn-acao ativar">Reativar atendimento</button>' : ''}
         </div>
       </div>
 
@@ -193,16 +200,18 @@ async function carregarAgendamentosDoDia(dataISO) {
         </div>
       </div>
     `;
-    card.querySelector('.btn-acao').addEventListener('click', () => {
+    card.querySelector('.btn-acao')?.addEventListener('click', () => {
       alternarStatusAgendamento(item.id, status);
     });
     containerLista.appendChild(card);
   });
 }
 
-// 3. Função ÚNICA para alternar Bloquear / Desbloquear
+// Itens antigos bloqueados podem ser reativados. A confirmação da solicitação
+// já reserva o horário, portanto atendimentos confirmados não são bloqueados daqui.
 async function alternarStatusAgendamento(id, statusAtual) {
-  const novoStatus = statusAtual === 'bloqueado' ? 'confirmado' : 'bloqueado';
+  if (statusAtual !== 'bloqueado') return;
+  const novoStatus = 'confirmado';
 
   const { error } = await _supabase
     .from('agendamentos')
@@ -224,6 +233,9 @@ async function atualizarResumoFinanceiro() {
   const elFatSemanal = document.getElementById('fat-semanal');
   const elFatMensal = document.getElementById('fat-mensal');
   const elTotalPets = document.getElementById('total-pets');
+  const elPeriodoSemanal = document.getElementById('periodo-semanal');
+  const elPeriodoMensal = document.getElementById('periodo-mensal');
+  const elPeriodoAgendamentos = document.getElementById('periodo-agendamentos');
 
   const hoje = new Date();
 
@@ -251,6 +263,7 @@ async function atualizarResumoFinanceiro() {
 
   const inicioMesISO = formatarData(primeiroDiaMes);
   const fimMesISO = formatarData(ultimoDiaMes);
+  const periodoLegivel = (inicio, fim) => `${inicio.toLocaleDateString('pt-BR')} a ${fim.toLocaleDateString('pt-BR')}`;
 
   // Consulta Semanal
   const { data: dadosSemana } = await _supabase
@@ -304,4 +317,13 @@ async function atualizarResumoFinanceiro() {
   if (elTotalPets) {
     elTotalPets.textContent = `${totalPetsSemana} Pet${totalPetsSemana !== 1 ? 's' : ''}`;
   }
+
+  if (elPeriodoSemanal) elPeriodoSemanal.textContent = periodoLegivel(segunda, sabado);
+  if (elPeriodoMensal) elPeriodoMensal.textContent = periodoLegivel(primeiroDiaMes, ultimoDiaMes);
+  if (elPeriodoAgendamentos) elPeriodoAgendamentos.textContent = `Confirmados de ${periodoLegivel(segunda, sabado)}`;
+}
+
+function atualizarDiaSelecionado(dataISO) {
+  const elemento = document.getElementById('dia-selecionado-admin');
+  if (elemento) elemento.textContent = formatarDataCurta(dataISO);
 }

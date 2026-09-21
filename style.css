@@ -981,3 +981,196 @@ select, textarea {
     grid-template-columns: 1fr;
   }
 }
+
+/* Painel administrativo: prioriza leitura rápida e espaço entre as decisões. */
+.main-admin {
+  display: grid;
+  grid-template-columns: minmax(270px, 320px) minmax(0, 1fr);
+  max-width: 1240px;
+  width: calc(100% - 48px);
+  gap: 32px;
+  padding: 32px 0 44px;
+  align-items: start;
+}
+
+.coluna-dashboards {
+  gap: 16px;
+}
+
+.cabecalho-resumo {
+  padding: 4px 4px 8px;
+}
+
+.cabecalho-resumo h2 {
+  margin: 4px 0 6px;
+  text-align: left;
+}
+
+.cabecalho-resumo > p:last-child {
+  margin: 0;
+  color: #666;
+  font-size: .86rem;
+  line-height: 1.45;
+}
+
+.card-metrica {
+  padding: 22px;
+  border: 1px solid rgba(255, 255, 255, .25);
+}
+
+.card-metrica small {
+  min-height: 18px;
+  line-height: 1.35;
+}
+
+.section-admin-agenda {
+  width: auto;
+  max-width: none;
+  padding: 32px;
+  border-radius: 16px;
+}
+
+.cabecalho-agenda {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, .2);
+}
+
+.eyebrow-agenda {
+  margin: 0;
+  color: #fce7f3;
+  font-size: .75rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+}
+
+.section-admin-agenda h2 {
+  margin: 5px 0 0;
+  text-align: left;
+}
+
+.dia-selecionado-admin {
+  max-width: 180px;
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .14);
+  color: #fff;
+  font-size: .8rem;
+  font-weight: 700;
+  line-height: 1.25;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.section-admin-agenda .label-sub {
+  margin: 20px 0 12px;
+}
+
+.grid-dias-admin {
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.btn-dia-admin {
+  min-height: 60px;
+}
+
+.container-cards-agenda {
+  gap: 18px;
+}
+
+.card-agendamento {
+  gap: 18px;
+  padding: 22px;
+  background: rgba(255, 255, 255, .12);
+}
+
+.card-linha-topo {
+  gap: 18px;
+  padding-bottom: 14px;
+}
+
+.card-corpo {
+  gap: 24px;
+}
+
+.detalhes-cliente {
+  gap: 10px 22px;
+  padding-top: 4px;
+}
+
+.acoes-card {
+  flex-wrap: wrap;
+}
+
+.btn-acao {
+  width: auto;
+  min-height: 36px;
+  padding: 8px 12px;
+  white-space: nowrap;
+}
+
+.estado-agenda {
+  margin: 0;
+  padding: 26px;
+  border: 1px dashed rgba(255, 255, 255, .45);
+  border-radius: 12px;
+  color: #fff;
+  text-align: center;
+}
+
+.estado-agenda.vazio {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.estado-agenda.vazio span {
+  color: rgba(255, 255, 255, .82);
+  font-size: .9rem;
+}
+
+@media (max-width: 720px) {
+  .main-admin {
+    grid-template-columns: 1fr;
+    width: calc(100% - 24px);
+    gap: 24px;
+    padding: 24px 0 32px;
+  }
+
+  .section-admin-agenda {
+    padding: 22px 18px;
+  }
+
+  .cabecalho-agenda {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dia-selecionado-admin {
+    max-width: none;
+  }
+
+  .grid-dias-admin {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .card-agendamento {
+    padding: 18px;
+  }
+
+  .card-linha-topo,
+  .card-corpo {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .acoes-card,
+  .valor-destaque {
+    align-items: flex-start;
+    text-align: left;
+  }
+}
