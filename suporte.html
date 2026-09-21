@@ -1,41 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH Pet Banho e Tosa - Suporte</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png?v=3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Fale com a equipe da TH Pet pelo WhatsApp.">
+  <title>Suporte | TH Pet Banho e Tosa</title>
+  <link rel="stylesheet" href="publico.css">
+  <link rel="stylesheet" href="institucional.css">
+  <link rel="icon" type="image/png" href="favicon.png?v=3">
 </head>
-
-<body>
-  <header class="header">
-    <div class="logo">TH Pet</div>
-    <nav>
-      <a href="agendamento.html">Agendar</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="suporte.html">Suporte</a>
-      <a href="index.html" id="btn-sair">Sair</a>
-    </nav>
+<body class="pagina-publica pagina-institucional">
+  <header class="topo-publico">
+    <a class="marca-publica" href="index.html" aria-label="TH Pet - início"><img src="LogoPet.jpg" alt="TH Pet Banho e Tosa"><span>TH Pet<br><small>Banho &amp; Tosa</small></span></a>
+    <nav aria-label="Navegação principal"><a href="index.html#agendar">Agendar</a><a href="sobre.html">Sobre</a><a href="suporte.html" aria-current="page">Suporte</a></nav>
+    <a class="link-gestao" href="admin-login.html">Área do pet shop</a>
   </header>
-
-  <main class="container">
-    <h2>Precisa de ajuda?</h2>
-    <p>Fale diretamente com nossa equipe pelo WhatsApp.</p>
-
-    <div class="card-suporte">
-      <h3>Atendimento via WhatsApp</h3>
-      <p>Tire dúvidas sobre agendamentos e serviços em tempo real.</p>
-      <!-- Altere o número abaixo para o seu WhatsApp com DDD -->
-      <a href="https://wa.me/553892086784?text=Ol%C3%A1%2C%20preciso%20de%20suporte%20com%20o%20TH%20Pet!" target="_blank" rel="noopener noreferrer"
-        class="btn-whatsapp">
-        Chamar no WhatsApp
-      </a>
-    </div>
+  <main class="conteudo-institucional">
+    <section class="hero-institucional suporte-hero">
+      <p class="selo">SUPORTE TH PET</p>
+      <h1>Precisa de ajuda com o agendamento?</h1>
+      <p>Fale diretamente com a nossa equipe pelo WhatsApp para tirar dúvidas, ajustar informações ou combinar detalhes do atendimento.</p>
+      <a class="botao-principal botao-whatsapp" href="https://wa.me/553892086784?text=Ol%C3%A1%2C%20preciso%20de%20suporte%20com%20o%20TH%20Pet!" target="_blank" rel="noopener noreferrer">Chamar no WhatsApp <span>↗</span></a>
+    </section>
+    <section class="cartoes-suporte" aria-label="Canais de atendimento">
+      <article><span>💬</span><div><strong>Atendimento direto</strong><p>Converse com uma pessoa da equipe.</p></div></article>
+      <article><span>📅</span><div><strong>Agendamento</strong><p>Confirmações e dúvidas sobre horários.</p></div></article>
+      <article><span>📍</span><div><strong>Busca do pet</strong><p>Combine endereço e instruções especiais.</p></div></article>
+    </section>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="sessao.js"></script>
+  <footer class="rodape-publico"><span>TH Pet Banho &amp; Tosa</span><a href="index.html#agendar">Fazer agendamento</a><a href="admin-login.html">Área administrativa</a></footer>
 </body>
-
 </html>

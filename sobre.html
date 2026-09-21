@@ -1,60 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH Pet Banho e Tosa - Sobre</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png?v=3">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Conheça a TH Pet Banho e Tosa.">
+  <title>Sobre | TH Pet Banho e Tosa</title>
+  <link rel="stylesheet" href="publico.css">
+  <link rel="stylesheet" href="institucional.css">
+  <link rel="icon" type="image/png" href="favicon.png?v=3">
 </head>
-
-<body>
-  <header class="header">
-    <div class="logo">TH Pet</div>
-    <nav>
-      <a href="agendamento.html">Agendar</a>
-      <a href="sobre.html">Sobre</a>
-      <a href="suporte.html">Suporte</a>
-      <a href="index.html" id="btn-sair">Sair</a>
-    </nav>
+<body class="pagina-publica pagina-institucional">
+  <header class="topo-publico">
+    <a class="marca-publica" href="index.html" aria-label="TH Pet - início"><img src="LogoPet.jpg" alt="TH Pet Banho e Tosa"><span>TH Pet<br><small>Banho &amp; Tosa</small></span></a>
+    <nav aria-label="Navegação principal"><a href="index.html#agendar">Agendar</a><a href="sobre.html" aria-current="page">Sobre</a><a href="suporte.html">Suporte</a></nav>
+    <a class="link-gestao" href="admin-login.html">Área do pet shop</a>
   </header>
-
-  <main class="container container-sobre">
-    <div class="sobre-introducao">
-      <h2>Sobre o TH Pet</h2>
-      <p>Cuidamos do seu pet com carinho, segurança e atenção em cada detalhe. Nosso objetivo é que ele se sinta bem
-        antes, durante e depois do atendimento.</p>
-    </div>
-
-    <div class="galeria-sobre">
-      <figure>
-        <img src="sobre-petshop.png" alt="Cão recebendo cuidados de banho e tosa no TH Pet">
-        <figcaption>Carinho e cuidado em cada atendimento.</figcaption>
-      </figure>
-      <figure>
-        <img src="sobre-gato-petshop.png" alt="Gato relaxando após receber cuidados de higiene">
-        <figcaption>Bem-estar para cães e gatos.</figcaption>
-      </figure>
-    </div>
-
-    <div class="info-box info-sobre">
-      <div>
-        <h3>Horário de funcionamento</h3>
-        <p>Segunda a sábado: 08:00 às 18:00</p>
-      </div>
-      <div>
-        <h3>Nossos serviços</h3>
-        <ul>
-          <li>Banho e tosa</li>
-          <li>Tosa higiênica</li>
-          <li>Hidratação, corte de unhas e limpeza de ouvidos</li>
-        </ul>
-      </div>
-    </div>
+  <main class="conteudo-institucional">
+    <section class="hero-institucional sobre-hero">
+      <div><p class="selo">SOBRE A TH PET</p><h1>Cuidado de verdade, em cada atendimento.</h1><p>Cuidamos do seu pet com carinho, segurança e atenção em cada detalhe — antes, durante e depois do banho e tosa.</p><a class="botao-principal" href="index.html#agendar">Agendar para meu pet <span>→</span></a></div>
+      <img src="sobre-petshop.png" alt="Cão recebendo cuidados de banho e tosa no TH Pet">
+    </section>
+    <section class="grade-sobre" aria-label="Informações sobre a TH Pet">
+      <article><span>🕗</span><h2>Horários</h2><p>Segunda a sábado<br><strong>08:00 às 18:00</strong></p></article>
+      <article><span>🐾</span><h2>Cuidados</h2><p>Banho, tosa, higiene e atenção especial às necessidades do seu pet.</p></article>
+      <article><span>💬</span><h2>Confirmação humana</h2><p>Depois da solicitação, a equipe conversa com você pelo WhatsApp.</p></article>
+    </section>
+    <section class="faixa-bem-estar"><img src="sobre-gato-petshop.png" alt="Gato relaxando após receber cuidados de higiene"><div><p class="selo">BEM-ESTAR EM PRIMEIRO LUGAR</p><h2>Um atendimento mais tranquilo para você e seu pet.</h2><p>Conte para nós sobre alergias, temperamento e cuidados especiais. Assim a equipe se prepara para receber seu melhor amigo.</p></div></section>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="sessao.js"></script>
+  <footer class="rodape-publico"><span>TH Pet Banho &amp; Tosa</span><a href="suporte.html">Precisa de ajuda?</a><a href="admin-login.html">Área administrativa</a></footer>
 </body>
-
 </html>

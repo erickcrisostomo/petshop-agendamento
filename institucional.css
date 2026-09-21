@@ -1,0 +1,17 @@
+.pagina-institucional .topo-publico nav a[aria-current="page"] { color: var(--rosa-escuro); }
+.conteudo-institucional { width: min(1100px, calc(100% - 32px)); margin: 0 auto; padding: 42px 0 72px; }
+.hero-institucional { background: linear-gradient(125deg, #f9e6ed, #fff3ee 62%, #eadce5); border-radius: 24px; padding: clamp(32px, 6vw, 72px); }
+.hero-institucional h1 { max-width: 680px; margin: 0; color: var(--petroleo); font-size: clamp(2.2rem, 5vw, 4.1rem); line-height: 1.04; letter-spacing: -.05em; }
+.hero-institucional p:not(.selo) { max-width: 650px; margin: 21px 0 29px; color: #53636a; font-size: 1.05rem; }
+.sobre-hero { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); align-items: center; gap: 45px; }
+.sobre-hero > img { width: 100%; height: 340px; object-fit: cover; border-radius: 18px; box-shadow: 0 16px 38px #203a4324; }
+.grade-sobre, .cartoes-suporte { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 22px 0 50px; }
+.grade-sobre article, .cartoes-suporte article { background: #fff; border: 1px solid var(--borda); border-radius: 16px; padding: 23px; box-shadow: 0 7px 18px #5430240b; }
+.grade-sobre article > span, .cartoes-suporte article > span { display: inline-grid; place-items: center; width: 42px; height: 42px; background: #fff1f6; border-radius: 12px; font-size: 1.35rem; }
+.grade-sobre h2 { margin: 16px 0 7px; color: var(--petroleo); font-size: 1.08rem; }
+.grade-sobre p, .cartoes-suporte p { margin: 0; color: #647278; font-size: .9rem; line-height: 1.5; }
+.faixa-bem-estar { display: grid; grid-template-columns: minmax(260px, .85fr) minmax(0, 1.15fr); gap: 38px; align-items: center; padding: 30px; background: var(--petroleo); border-radius: 20px; color: #fff; }
+.faixa-bem-estar img { width: 100%; height: 235px; object-fit: cover; border-radius: 14px; }.faixa-bem-estar .selo { color: #f8b7cf; }.faixa-bem-estar h2 { margin: 0 0 12px; font-size: clamp(1.55rem, 3vw, 2.2rem); line-height: 1.12; }.faixa-bem-estar p:not(.selo) { margin: 0; color: #d6e1e3; }
+.suporte-hero { max-width: 840px; margin: 0 auto; text-align: center; }.suporte-hero h1, .suporte-hero p:not(.selo) { margin-left: auto; margin-right: auto; }.botao-whatsapp { background: #21835a; box-shadow: 0 10px 24px #21835a33; }.botao-whatsapp:hover { background: #176a47; }
+.cartoes-suporte { max-width: 960px; margin-left: auto; margin-right: auto; }.cartoes-suporte article { display: flex; align-items: flex-start; gap: 14px; }.cartoes-suporte article > span { flex: 0 0 42px; }.cartoes-suporte strong { display: block; margin: 2px 0 5px; color: var(--petroleo); }
+@media (max-width: 720px) { .conteudo-institucional { padding: 24px 0 48px; }.hero-institucional { border-radius: 18px; padding: 30px 22px; }.sobre-hero, .grade-sobre, .cartoes-suporte, .faixa-bem-estar { grid-template-columns: 1fr; }.sobre-hero { gap: 26px; }.sobre-hero > img { height: 245px; }.grade-sobre, .cartoes-suporte { margin-bottom: 30px; }.faixa-bem-estar { gap: 22px; padding: 20px; }.faixa-bem-estar img { height: 200px; } }
