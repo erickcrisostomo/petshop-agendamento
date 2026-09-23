@@ -179,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
         `Serviços: ${servicos.map(id => SERVICOS[id].nome).join(', ')}`,
         `Data e horário desejados: ${new Date(`${dataSelecionada}T12:00:00`).toLocaleDateString('pt-BR')} às ${horarioSelecionado}`,
         `Chegada: ${tipoChegada}`,
+        tipoChegada === 'Solicitou busca em casa' ? `Endereço para busca: ${payload.endereco.trim()}` : '',
         `Valor estimado dos serviços: ${valor}`,
         tipoChegada === 'Solicitou busca em casa' ? 'Taxa de busca: a confirmar conforme endereço.' : '',
         `Pagamento escolhido: ${pagamento}`,

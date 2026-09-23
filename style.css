@@ -712,6 +712,10 @@ select, textarea {
   font-size: 0.85rem;
 }
 
+.detalhes-cliente span {
+  overflow-wrap: anywhere;
+}
+
 .link-contato {
   color: #b5f5ec;
   font-weight: 700;

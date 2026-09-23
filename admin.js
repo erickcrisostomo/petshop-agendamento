@@ -8,6 +8,18 @@ const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 const ADMIN_EMAIL = 'pretin@thpet.com.br';
 
 let dataSelecionadaAdmin = '';
+let dataAtualPainel = '';
+
+function hojeNoBrasil() {
+  const partes = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Sao_Paulo', year: 'numeric', month: '2-digit', day: '2-digit'
+  }).formatToParts(new Date()).reduce((valores, parte) => ({ ...valores, [parte.type]: parte.value }), {});
+  return new Date(Number(partes.year), Number(partes.month) - 1, Number(partes.day));
+}
+
+function dataISOAdmin(data) {
+  return `${data.getFullYear()}-${String(data.getMonth() + 1).padStart(2, '0')}-${String(data.getDate()).padStart(2, '0')}`;
+}
 
 function formatarDataCurta(dataISO) {
   const [ano, mes, dia] = dataISO.split('-').map(Number);
@@ -38,7 +50,28 @@ document.addEventListener('DOMContentLoaded', async function () {
 
   gerarDiasSemanaAdmin();
   atualizarResumoFinanceiro();
+  dataAtualPainel = dataISOAdmin(hojeNoBrasil());
+  setInterval(sincronizarDataPainel, 60 * 1000);
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) sincronizarDataPainel();
+  });
 });
+
+function sincronizarDataPainel() {
+  const hojeISO = dataISOAdmin(hojeNoBrasil());
+  if (hojeISO === dataAtualPainel) return;
+  const semanaAtual = document.querySelector('.btn-dia-admin')?.dataset.data;
+  dataAtualPainel = hojeISO;
+  const novaSegunda = new Date(`${hojeISO}T12:00:00`);
+  const dia = novaSegunda.getDay();
+  novaSegunda.setDate(novaSegunda.getDate() + (dia === 0 ? 1 : 1 - dia));
+  if (semanaAtual !== dataISOAdmin(novaSegunda)) {
+    gerarDiasSemanaAdmin();
+  } else if (dataSelecionadaAdmin) {
+    carregarAgendamentosDoDia(dataSelecionadaAdmin);
+  }
+  atualizarResumoFinanceiro();
+}
 
 function escaparHtml(valor) {
   return String(valor ?? '')
@@ -66,7 +99,7 @@ function gerarDiasSemanaAdmin() {
   const containerDias = document.getElementById('container-dias-admin');
   if (!containerDias) return;
 
-  const hoje = new Date();
+  const hoje = hojeNoBrasil();
   const diaAtual = hoje.getDay();
 
   const segundaFeira = new Date(hoje);
@@ -83,10 +116,7 @@ function gerarDiasSemanaAdmin() {
     const dataDia = new Date(segundaFeira);
     dataDia.setDate(segundaFeira.getDate() + i);
 
-    const ano = dataDia.getFullYear();
-    const mes = String(dataDia.getMonth() + 1).padStart(2, '0');
-    const dia = String(dataDia.getDate()).padStart(2, '0');
-    const dataISO = `${ano}-${mes}-${dia}`;
+    const dataISO = dataISOAdmin(dataDia);
 
     const dataFormatada = dataDia.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' });
 
@@ -169,6 +199,7 @@ async function carregarAgendamentosDoDia(dataISO) {
       ? `<a class="link-contato" href="https://wa.me/55${telefoneNumeros}" target="_blank" rel="noopener noreferrer">${formatarTelefone(telefoneNumeros)}</a>`
       : 'Não informado';
     const tipoBusca = escaparHtml(item.tipo_busca || 'Não informado');
+    const enderecoBusca = item.endereco_busca ? escaparHtml(item.endereco_busca) : '';
     const pagamento = escaparHtml(item.pagamento || 'Não informado');
 
     card.className = `card-agendamento ${estaCancelado ? 'cancelado' : estaBloqueado ? 'bloqueado' : ''}`;
@@ -195,6 +226,7 @@ async function carregarAgendamentosDoDia(dataISO) {
           <div class="detalhes-cliente">
             <span><strong>WhatsApp:</strong> ${contatoHtml}</span>
             <span><strong>Chegada:</strong> ${tipoBusca}</span>
+            ${enderecoBusca ? `<span><strong>Endereço para busca:</strong> ${enderecoBusca}</span>` : ''}
             <span><strong>Pagamento:</strong> ${pagamento}</span>
           </div>
         </div>
@@ -269,12 +301,12 @@ async function atualizarResumoFinanceiro() {
   const elPeriodoMensal = document.getElementById('periodo-mensal');
   const elPeriodoAgendamentos = document.getElementById('periodo-agendamentos');
 
-  const hoje = new Date();
+  const hoje = hojeNoBrasil();
 
   // Define segunda-feira e sábado da semana atual
   const diaSemana = hoje.getDay();
   const segunda = new Date(hoje);
-  segunda.setDate(hoje.getDate() - (diaSemana === 0 ? 6 : diaSemana - 1));
+  segunda.setDate(hoje.getDate() + (diaSemana === 0 ? 1 : 1 - diaSemana));
 
   const sabado = new Date(segunda);
   sabado.setDate(segunda.getDate() + 5);
