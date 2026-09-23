@@ -50,7 +50,12 @@ function horarioJaPassouHoje(data, horario, agora) {
 module.exports = async (req, res) => {
   if (req.method !== 'POST') return responder(res, 405, { erro: 'Método não permitido.' });
 
-  const corpo = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+  let corpo;
+  try {
+    corpo = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
+  } catch {
+    return responder(res, 400, { erro: 'Dados da solicitação inválidos.' });
+  }
   if (texto(corpo.site, 100)) return responder(res, 400, { erro: 'Não foi possível enviar a solicitação.' });
 
   const nomeTutor = texto(corpo.nomeTutor, 100);
@@ -108,12 +113,38 @@ module.exports = async (req, res) => {
   };
 
   try {
+    // Limite persistente entre instâncias da Vercel: evita reenvios acidentais
+    // e impede que um telefone encha a fila de pedidos em pouco tempo.
+    const desde = new Date(Date.now() - 60 * 60 * 1000).toISOString();
+    const consulta = new URL(`${url}/rest/v1/solicitacoes_agendamento`);
+    consulta.searchParams.set('select', 'codigo,valor_estimado,data_desejada,horario_desejado,status,created_at');
+    consulta.searchParams.set('telefone', `eq.55${telefoneNumeros}`);
+    consulta.searchParams.set('created_at', `gte.${desde}`);
+    consulta.searchParams.set('order', 'created_at.desc');
+    consulta.searchParams.set('limit', '4');
+    const cabecalhos = { apikey: chave, Authorization: `Bearer ${chave}` };
+    const consultaRecente = await fetch(consulta, { headers: cabecalhos });
+    if (!consultaRecente.ok) throw new Error('Falha ao consultar solicitações recentes.');
+    const recentes = await consultaRecente.json();
+    const pedidoIgual = recentes.find(item => item.data_desejada === dataDesejada && item.horario_desejado === horarioDesejado &&
+      item.status === 'aguardando_confirmacao');
+    if (pedidoIgual) {
+      return responder(res, 200, { codigo: pedidoIgual.codigo, valorEstimado: pedidoIgual.valor_estimado, existente: true });
+    }
+    if (recentes.some(item => item.data_desejada === dataDesejada && item.horario_desejado === horarioDesejado &&
+      item.status === 'confirmado')) {
+      return responder(res, 409, { erro: 'Este horário já foi confirmado para esse telefone. Fale conosco pelo WhatsApp se precisar alterar algo.' });
+    }
+    if (recentes.length >= 3) {
+      res.setHeader('Retry-After', '3600');
+      return responder(res, 429, { erro: 'Limite de solicitações atingido. Aguarde um pouco ou fale conosco pelo WhatsApp.' });
+    }
+
     // A chave de serviço permanece somente na Vercel. Ela nunca é enviada ao navegador.
     const resposta = await fetch(`${url}/rest/v1/solicitacoes_agendamento`, {
       method: 'POST',
       headers: {
-        apikey: chave,
-        Authorization: `Bearer ${chave}`,
+        ...cabecalhos,
         'Content-Type': 'application/json',
         Prefer: 'return=representation'
       },

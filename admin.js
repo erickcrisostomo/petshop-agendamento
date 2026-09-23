@@ -146,8 +146,9 @@ async function carregarAgendamentosDoDia(dataISO) {
 
   agendamentos.forEach(item => {
     const card = document.createElement('div');
-    const status = item.status === 'bloqueado' ? 'bloqueado' : 'confirmado';
+    const status = item.cancelado_em ? 'cancelado' : item.status === 'bloqueado' ? 'bloqueado' : 'confirmado';
     const estaBloqueado = status === 'bloqueado';
+    const estaCancelado = status === 'cancelado';
 
     let listaServicosHTML = '';
     if (item.servico) {
@@ -170,7 +171,7 @@ async function carregarAgendamentosDoDia(dataISO) {
     const tipoBusca = escaparHtml(item.tipo_busca || 'Não informado');
     const pagamento = escaparHtml(item.pagamento || 'Não informado');
 
-    card.className = `card-agendamento ${estaBloqueado ? 'bloqueado' : ''}`;
+    card.className = `card-agendamento ${estaCancelado ? 'cancelado' : estaBloqueado ? 'bloqueado' : ''}`;
     card.innerHTML = `
       <div class="card-linha-topo">
         <div class="horario-tag">${escaparHtml(item.horario)}</div>
@@ -179,8 +180,9 @@ async function carregarAgendamentosDoDia(dataISO) {
           <span class="porte-badge">${escaparHtml(item.porte_especie)}</span>
         </div>
         <div class="acoes-card">
-          <span class="badge ${status}">${estaBloqueado ? 'bloqueado' : 'confirmado'}</span>
+          <span class="badge ${status}">${status}</span>
           ${estaBloqueado ? '<button type="button" class="btn-acao ativar">Reativar atendimento</button>' : ''}
+          ${status === 'confirmado' ? '<button type="button" class="btn-acao cancelar">Cancelar agendamento</button>' : ''}
         </div>
       </div>
 
@@ -202,11 +204,38 @@ async function carregarAgendamentosDoDia(dataISO) {
         </div>
       </div>
     `;
-    card.querySelector('.btn-acao')?.addEventListener('click', () => {
+    card.querySelector('.btn-acao.ativar')?.addEventListener('click', () => {
       alternarStatusAgendamento(item.id, status);
+    });
+    card.querySelector('.btn-acao.cancelar')?.addEventListener('click', () => {
+      cancelarAgendamento(item, card);
     });
     containerLista.appendChild(card);
   });
+}
+
+async function cancelarAgendamento(item, card) {
+  if (!window.confirm(`Cancelar o agendamento de ${item.nome_pet} em ${formatarDataCurta(item.data_agendamento)} às ${item.horario}? O horário ficará disponível novamente.`)) return;
+  const botao = card.querySelector('.btn-acao.cancelar');
+  botao.disabled = true;
+  botao.textContent = 'Cancelando...';
+
+  const { data, error } = await _supabase
+    .from('agendamentos')
+    .update({ cancelado_em: new Date().toISOString() })
+    .eq('id', item.id)
+    .is('cancelado_em', null)
+    .select('id');
+
+  if (error || !data?.length) {
+    alert(error ? `Não foi possível cancelar: ${error.message}` : 'Este agendamento já foi alterado. Atualize a agenda.');
+    botao.disabled = false;
+    botao.textContent = 'Cancelar agendamento';
+    return;
+  }
+
+  await carregarAgendamentosDoDia(dataSelecionadaAdmin);
+  await atualizarResumoFinanceiro();
 }
 
 // Itens antigos bloqueados podem ser reativados. A confirmação da solicitação
@@ -218,7 +247,8 @@ async function alternarStatusAgendamento(id, statusAtual) {
   const { error } = await _supabase
     .from('agendamentos')
     .update({ status: novoStatus })
-    .eq('id', id);
+    .eq('id', id)
+    .is('cancelado_em', null);
 
   if (error) {
     alert('Erro ao atualizar status: ' + error.message);
@@ -272,6 +302,7 @@ async function atualizarResumoFinanceiro() {
     .from('agendamentos')
     .select('valor')
     .eq('status', 'confirmado')
+    .is('cancelado_em', null)
     .gte('data_agendamento', inicioSemanaISO)
     .lte('data_agendamento', fimSemanaISO);
 
@@ -280,6 +311,7 @@ async function atualizarResumoFinanceiro() {
     .from('agendamentos')
     .select('valor')
     .eq('status', 'confirmado')
+    .is('cancelado_em', null)
     .gte('data_agendamento', inicioMesISO)
     .lte('data_agendamento', fimMesISO);
 

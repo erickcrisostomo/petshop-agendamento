@@ -165,7 +165,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!resposta.ok) throw new Error(resultado.erro || 'Não foi possível registrar a solicitação.');
 
       const valor = Number(resultado.valorEstimado || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-      const texto = [
+      const texto = resultado.existente ? [
+        'Olá! Gostaria de confirmar ou alterar minha solicitação de agendamento.',
+        '',
+        `Código: ${resultado.codigo}`,
+        'Já enviei este pedido pelo site. Podemos conferir os detalhes?'
+      ].join('\n') : [
         'Olá! Gostaria de confirmar uma solicitação de agendamento.',
         '',
         `Código: ${resultado.codigo}`,
@@ -181,7 +186,7 @@ document.addEventListener('DOMContentLoaded', () => {
         'Aguardo a confirmação. Obrigado!'
       ].filter(Boolean).join('\n');
 
-      exibirMensagem(`Solicitação ${resultado.codigo} registrada. Abrindo o WhatsApp para você enviar a mensagem…`, 'sucesso');
+      exibirMensagem(`Solicitação ${resultado.codigo} ${resultado.existente ? 'já registrada' : 'registrada'}. Abrindo o WhatsApp para você enviar a mensagem…`, 'sucesso');
       window.location.href = `https://wa.me/${WHATSAPP_TH_PET}?text=${encodeURIComponent(texto)}`;
     } catch (erro) {
       exibirMensagem(erro.message, 'erro');

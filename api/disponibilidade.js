@@ -17,7 +17,7 @@ module.exports = async (req, res) => {
   try {
     // O navegador recebe apenas a lista de horários ocupados, nunca dados de clientes.
     const resposta = await fetch(
-      `${url}/rest/v1/agendamentos?select=horario&data_agendamento=eq.${encodeURIComponent(data)}`,
+      `${url}/rest/v1/agendamentos?select=horario&data_agendamento=eq.${encodeURIComponent(data)}&cancelado_em=is.null`,
       { headers: { apikey: chave, Authorization: `Bearer ${chave}` } }
     );
     if (!resposta.ok) throw new Error('Falha na consulta ao banco.');

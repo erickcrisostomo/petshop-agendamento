@@ -731,6 +731,30 @@ select, textarea {
   color: #991b1b;
 }
 
+.badge.cancelado {
+  background: #f3e8ec;
+  color: #743e55;
+}
+
+.card-agendamento.cancelado {
+  opacity: .7;
+}
+
+.btn-acao.cancelar {
+  background: #fff;
+  color: #8b214f;
+  border: 1px solid #f4bfda;
+}
+
+.btn-acao.cancelar:hover {
+  background: #fce7f3;
+}
+
+.btn-acao:disabled {
+  opacity: .6;
+  cursor: wait;
+}
+
 .acoes-card {
   display: flex;
   align-items: center;
