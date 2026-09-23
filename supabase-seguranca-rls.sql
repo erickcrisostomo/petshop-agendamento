@@ -1,6 +1,6 @@
--- Políticas de segurança da tabela public.agendamentos.
--- Execute este arquivo no SQL Editor do Supabase somente depois de publicar
--- a versão do site que usa a função horarios_ocupados.
+-- Configuracao historica da tabela public.agendamentos.
+-- O fluxo atual usa solicitacoes publicas e nao permite INSERT direto
+-- por clientes. Execute supabase-fechamento-acessos.sql por ultimo.
 
 begin;
 
@@ -28,6 +28,8 @@ $$;
 
 revoke all on function public.is_admin() from public;
 revoke all on function public.horarios_ocupados(date) from public;
+revoke execute on function public.is_admin() from anon;
+revoke execute on function public.horarios_ocupados(date) from anon;
 grant execute on function public.is_admin() to authenticated;
 grant execute on function public.horarios_ocupados(date) to authenticated;
 
@@ -42,11 +44,9 @@ drop policy if exists "Permitir leitura de agendamentos" on public.agendamentos;
 drop policy if exists "Usuarios podem criar agendamentos" on public.agendamentos;
 drop policy if exists "Usuarios veem apenas seus agendamentos" on public.agendamentos;
 
-create policy "Clientes criam apenas os próprios agendamentos"
-on public.agendamentos
-for insert
-to authenticated
-with check (cliente_id = (select auth.uid()));
+drop policy if exists "Clientes criam apenas os próprios agendamentos"
+  on public.agendamentos;
+revoke insert on table public.agendamentos from public, anon, authenticated;
 
 create policy "Clientes veem apenas os próprios agendamentos"
 on public.agendamentos
