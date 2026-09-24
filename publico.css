@@ -12,9 +12,9 @@
 html { scroll-behavior: smooth; }
 body.pagina-publica { margin: 0; background: var(--fundo); color: var(--texto); font-family: Arial, Helvetica, sans-serif; line-height: 1.45; }
 button, input, select, textarea { font: inherit; }
-.topo-publico { width: min(1180px, calc(100% - 32px)); margin: auto; min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.topo-publico { width: min(1180px, calc(100% - 32px)); margin: auto; min-height: 90px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
 .marca-publica { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--petroleo); font-weight: 800; line-height: 1; }
-.marca-publica img { height: 48px; width: 48px; border-radius: 50%; object-fit: cover; }
+.marca-publica img { height: 72px; width: 72px; border-radius: 50%; object-fit: cover; flex: none; }
 .marca-publica small { font-size: .7rem; font-weight: 600; color: #69767c; }
 .topo-publico nav { display: flex; gap: 24px; }
 .topo-publico nav a, .link-gestao, .rodape-publico a { color: #4e5a60; text-decoration: none; font-weight: 700; font-size: .9rem; }
@@ -88,7 +88,8 @@ button, input, select, textarea { font: inherit; }
 .rodape-publico { width: min(1100px, calc(100% - 32px)); border-top: 1px solid var(--borda); margin: auto; padding: 28px 0 36px; display: flex; gap: 20px; justify-content: space-between; color: #68767b; font-size: .84rem; }
 
 @media (max-width: 720px) {
-  .topo-publico { min-height: 66px; gap: 12px; }
+  .topo-publico { min-height: 76px; gap: 12px; }
+  .marca-publica img { height: 58px; width: 58px; }
   .topo-publico nav { display: none; }
   .link-gestao { margin-left: auto; font-size: .75rem; padding: 8px 10px; }
   .hero-publico { grid-template-columns: 1fr; gap: 30px; padding-top: 44px; padding-bottom: 58px; }
