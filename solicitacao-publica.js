@@ -6,7 +6,7 @@ const SERVICOS = {
   unhas_ouvidos: { nome: 'Unhas e ouvidos', valor: 15 },
   dentes: { nome: 'Escovação de dentes', valor: 10 }
 };
-const WHATSAPP_TH_PET = '553892086784';
+const WHATSAPP_TH_PET = '5538988100640';
 
 document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('form-solicitacao');
