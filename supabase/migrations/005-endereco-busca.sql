@@ -1,4 +1,4 @@
--- Executar após supabase-cancelamento.sql para manter o endereço na agenda.
+-- Executar após 004-cancelamento.sql para manter o endereço na agenda.
 begin;
 
 alter table public.agendamentos

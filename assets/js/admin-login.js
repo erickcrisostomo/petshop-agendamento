@@ -78,7 +78,7 @@ if (formLogin) {
 
       // Somente a conta administrativa pode abrir o painel.
       setTimeout(() => {
-        window.location.href = 'ThaisPet@.html';
+        window.location.href = 'admin.html';
       }, 1500);
     }
   });

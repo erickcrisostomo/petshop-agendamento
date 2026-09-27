@@ -1,98 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TH Pet Banho e Tosa - Painel Admin</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="icon" type="image/png" href="favicon.png?v=3">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="0; url=admin.html">
+  <link rel="canonical" href="admin.html">
+  <title>Redirecionando para o painel | TH Pet</title>
 </head>
 <body>
-    <header>
-        <img src="LogoPet.jpg" alt="Logo TH Pet Banho e Tosa">
-        <nav>
-            <ul>
-                <li><a href="index.html#agendar">Tela do Cliente</a></li>
-                <li><a href="index.html" id="btn-sair">Sair</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <section class="section-solicitacoes-admin" aria-labelledby="titulo-solicitacoes">
-        <div>
-            <p class="eyebrow-admin">NOVAS SOLICITAÇÕES</p>
-            <h2 id="titulo-solicitacoes">Pedidos aguardando confirmação</h2>
-            <p>Confira a mensagem do WhatsApp e confirme o horário quando estiver tudo certo.</p>
-        </div>
-        <div id="lista-solicitacoes" class="lista-solicitacoes-admin" aria-live="polite">
-            <p>Carregando solicitações...</p>
-        </div>
-    </section>
-
-    <main class="main-admin">
-        <!-- Coluna 1: Métricas e Faturamento -->
-        <aside class="coluna-dashboards" aria-label="Resumo de receita e agenda">
-            <div class="cabecalho-resumo">
-                <p class="eyebrow-admin">VISÃO GERAL</p>
-                <h2>Resumo da agenda</h2>
-                <p>Soma dos agendamentos confirmados e ativos. Não representa pagamentos já recebidos.</p>
-            </div>
-
-            <div class="card-metrica">
-                <span class="titulo-metrica">Valor previsto da semana</span>
-                <h3 id="fat-semanal">R$ 0,00</h3>
-                <small id="periodo-semanal">Carregando período...</small>
-            </div>
-
-            <div class="card-metrica">
-                <span class="titulo-metrica">Valor previsto do mês</span>
-                <h3 id="fat-mensal">R$ 0,00</h3>
-                <small id="periodo-mensal">Carregando período...</small>
-            </div>
-
-            <div class="card-metrica">
-                <span class="titulo-metrica">Total de Agendamentos</span>
-                <h3 id="total-pets">0 Pets</h3>
-                <small id="periodo-agendamentos">Nesta semana</small>
-            </div>
-        </aside>
-
-        <!-- Coluna 2: Agenda do Pet Shop -->
-        <section class="section-admin-agenda" aria-labelledby="titulo-agenda-admin">
-            <div class="cabecalho-agenda">
-                <div>
-                    <p class="eyebrow-agenda">AGENDA SEMANAL</p>
-                    <h2 id="titulo-agenda-admin">Agenda e histórico do dia</h2>
-                </div>
-                <span id="dia-selecionado-admin" class="dia-selecionado-admin">Selecione um dia</span>
-            </div>
-
-            <p class="label-sub">Selecione um dia para consultar os horários reservados.</p>
-            <div class="grid-dias-admin" id="container-dias-admin">
-                <!-- Dias gerados via admin.js -->
-            </div>
-
-            <div class="container-cards-agenda" id="lista-horarios-admin">
-                <!-- Cards renderizados dinamicamente pelo admin.js a partir do Supabase -->
-            </div>
-        </section>
-    </main>
-
-    <footer>
-        <ul>
-            <li><a href="#">Privacidade</a></li>
-            <li><a href="#">Termos</a></li>
-        </ul>
-        <p><small>&copy; 2026 Th. Todos os direitos reservados.</small></p>
-    </footer>
-
-    <!-- SDK do Supabase deve ser carregado PRIMEIRO -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <!-- Lógica da página Admin carregada DEPOIS -->
-    <script src="admin.js"></script>
-    <script src="solicitacoes-admin.js"></script>
+  <p>O painel mudou de endereço. <a href="admin.html">Abrir painel do pet shop</a>.</p>
 </body>
-
 </html>

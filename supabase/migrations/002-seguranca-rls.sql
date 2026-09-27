@@ -1,6 +1,6 @@
 -- Configuracao historica da tabela public.agendamentos.
 -- O fluxo atual usa solicitacoes publicas e nao permite INSERT direto
--- por clientes. Execute supabase-fechamento-acessos.sql por ultimo.
+-- por clientes. Execute 006-fechamento-acessos.sql por ultimo.
 
 begin;
 

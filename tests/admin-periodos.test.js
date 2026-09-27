@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const vm = require('node:vm');
 
-const codigo = fs.readFileSync(require.resolve('../admin.js'), 'utf8');
+const codigo = fs.readFileSync(require.resolve('../assets/js/admin.js'), 'utf8');
 
 async function consultarPeriodos(instante) {
   const intervalos = [];
